@@ -1,7 +1,16 @@
 #!/usr/bin/python3
-from models.engine.file_storage import FileStorage
+from os import environ
+
+# get the storage type
+storage_type = environ.get('APPIARY_TYPE_STORAGE')
 
 
-storage = FileStorage()
+if storage_type == "db":
+    from models.engine.db_storage import DBStorage
+    storage = FileStorage()
+else:
+    from models.engine.file_storage import FileStorage
+    storage = DBStorage()
+
 
 storage.reload()
