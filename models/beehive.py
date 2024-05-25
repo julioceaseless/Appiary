@@ -4,7 +4,7 @@ import models
 from models.base_model import BaseModel, Base
 from os import environ
 import sqlalchemy
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, Boolean, ForeignKey
 
 class Beehive(BaseModel, Base):
     """Define beehive model"""
@@ -17,7 +17,7 @@ class Beehive(BaseModel, Base):
         __tablename__ = 'beehives'
 
         # override the UUID column with integer type
-        id = Colum(Integer, primary_key=True)
+        id = Column(Integer, primary_key=True)
         apiary_id = Column(Integer, ForeignKey('apiaries.id'), nullable=False)
         ready_for_harvest = Column(Boolean, default=False)
         next_harvest_date = Column(DateTime, default=datetime.utcnow)
