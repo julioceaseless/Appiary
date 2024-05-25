@@ -1,39 +1,30 @@
 #!/usr/bin/python3
 """ Create an Apiary"""
-from models.base_model import BaseModel
-from models.beehive import Beehive
-from models.user import User
+import models
+from models.base_model import BaseModel, Base
+from os import environ
+import sqlalchemy
+from sqlalchemy import Column, String, Integer, Float, ForeignKey
 
 
-class Apiary(BaseModel):
+
+
+class Apiary(BaseModel, Base):
     """define an apiary"""
+    if models.storage_type == 'db':
+        __tablename__ = 'apiaries'
+        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+        name = Column(String(60), nullable=False)
+        longitude = Column(Float, nullable=True)
+        latitude = Column(Float, nullable=True)
+        description = Column(String(1024), nullable=True)
+    else:
+        user_id = ""
+        name = ""
+        longitude = ""
+        latitude = ""
+        description = ""
+
+
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if kwargs:
-            # when loading from database
-            if kwargs.get('name'):
-                self.name = kwargs.get('name')
-            if kwargs.get('location'):
-                self.location = kwargs.get('location')
-            if kwargs.get('user'):
-                self.user = kwargs.get('user')
-            if kwargs.get('county'):
-                self.county = kwargs.get('county')
-            if kwargs.get('town'):
-                self.town = kwargs.get('town', "")
-        else:
-            self.name = ""
-            self.location = ""
-            self.user = ""
-
-
-if __name__ == "__main__":
-    beehive = Beehive()
-    beehive1 = Beehive()
-    beehive2 = Beehive()
-    user1 = User("Julius", "Machira", 2000)
-    apiary = Apiary("Kirwa C", (-73.935242, 40.730610), user1)
-    apiary.add_beehive(beehive)
-    apiary.add_beehive(beehive1)
-
-    print(apiary.__dict__)
+        super().__init__(*args, **kwargs)        
