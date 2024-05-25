@@ -11,10 +11,10 @@ storage_type = environ.get('APPIARY_TYPE_STORAGE')
 # select engine based on the storage type
 if storage_type == "db":
     from models.engine.db_storage import DBStorage
-    storage = FileStorage()
+    storage = DBStorage()
 else:
     from models.engine.file_storage import FileStorage
-    storage = DBStorage()
+    storage = FileStorage()
 
 # reload objects from storage
 storage.reload()
