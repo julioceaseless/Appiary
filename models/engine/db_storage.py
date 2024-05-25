@@ -5,20 +5,14 @@ Database storage engine
 
 from models.base_model import BaseModel, Base
 from models.apiary import Apiary
-from models.beehive import Beehive
-from models.harvest import Harvest
-from models.inspection import Insepction
 from models.user import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker, Session
-import environ
+from os import environ
 
 
-all_classes = {'Apiary': Apiary, 'Beehive': Beehive,
-               'Harvest': Harvest, 'Inspection': Inspection
-               'User': User,
-               }
+all_classes = {'Apiary': Apiary, 'User': User}
 
 class DBStorage:
     """
@@ -56,7 +50,7 @@ class DBStorage:
             for row in self.__session.query(cls).all():
                 # populate dict with objects from storage
                 obj_dict.update({"{}.{}: {}".
-                                format(type(row).__name__, row.id, row})
+                                format(type(row).__name__, row.id,): row})
         else:
             for val in all_classes.values():
                 for row in self.__session.query(val):
