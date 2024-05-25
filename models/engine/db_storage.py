@@ -6,13 +6,14 @@ Database storage engine
 from models.base_model import BaseModel, Base
 from models.apiary import Apiary
 from models.user import User
+from models.beehive import Beehive
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker, Session
 from os import environ
 
 
-all_classes = {'Apiary': Apiary, 'User': User}
+all_classes = {'Apiary': Apiary, 'User': User, 'Beehive': Beehive}
 
 class DBStorage:
     """
