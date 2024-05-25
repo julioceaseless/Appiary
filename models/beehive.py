@@ -4,7 +4,7 @@ import models
 from models.base_model import BaseModel, Base
 from os import environ
 import sqlalchemy
-from sqlalchemy import Column, String, Integer, Float, Boolean, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, Boolean, ForeignKey, DateTime
 
 class Beehive(BaseModel, Base):
     """Define beehive model"""
