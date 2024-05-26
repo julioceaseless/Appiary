@@ -14,7 +14,7 @@ class Inspection(BaseModel, Base):
         # use database
         __tablename__ = 'inspections'
 
-        hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
+        hive_id = Column(Integer, ForeignKey('beehives.id'), nullable=False)
         observations = Column(String(1024), nullable=True)
         ready_for_harvest = Column(String(5), default='No')
     else:
