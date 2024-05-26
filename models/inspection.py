@@ -11,11 +11,14 @@ from datetime import datetime
 class Inspection(BaseModel, Base):
     """Define inspection class"""
     if models.storage_type == 'db':
+        # use database
         __tablename__ = 'inspections'
+
         hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
         observations = Column(String(1024), nullable=True)
         ready_for_harvest = Column(String(5), default='No')
     else:
+        # use file storage
         hive_id = ''
         observations = ''
         ready_for_harvest = ''
@@ -23,7 +26,6 @@ class Inspection(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initialize inspection"""
         super().__init__(*args, **kwargs)
-
 
     def validate_hive(self):
         """ check if hive is valid"""
@@ -33,13 +35,11 @@ class Inspection(BaseModel, Base):
                 return True
         return False
 
-
     def update_notes(self, update_text):
         """update the observations"""
         if update_text:
             self.notes = update_text
             self.updated_at = datetime.now()
-
 
     def set_harvest_ready(self):
         """set harvest status"""
