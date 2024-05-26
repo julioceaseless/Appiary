@@ -5,7 +5,7 @@
 import models
 from models.base_model import BaseModel
 import sqlalchemy
-from sqlalchemy import Column, String, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from datetime import datetime
 
 
