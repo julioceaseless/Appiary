@@ -7,13 +7,19 @@ from models.base_model import BaseModel, Base
 from models.apiary import Apiary
 from models.user import User
 from models.beehive import Beehive
+from models.inspection import Inspection
+from models.harvest import Harvest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker, Session
 from os import environ
 
 
-all_classes = {'Apiary': Apiary, 'User': User, 'Beehive': Beehive}
+all_classes = {'Apiary': Apiary, 'User': User,
+               'Beehive': Beehive, 'Inspection': Inspection,
+               'Harvest': Harvest
+               }
+
 
 class DBStorage:
     """
@@ -36,29 +42,29 @@ class DBStorage:
                                              environ.get('APPIARY_MYSQL_DB')),
                                       pool_pre_ping=True)
 
-        # drop tables 
+        # drop tables
         if environ.get('APPIARY_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """
-        Query and return all objects by class/generally
+        Query on the current database session
         Return: dictionary (<class-name>.<object-id>: <obj>)
         """
         obj_dict = {}
 
         if cls:
-            for row in self.__session.query(cls).all():
-                # populate dict with objects from storage
-                obj_dict.update({"{}.{}: {}".
-                                format(type(row).__name__, row.id,): row})
+            cls_obj = all_classes.get(cls)
+            objs = self.__session.query(cls_obj).all()
+            for obj in objs:
+                key = f"{obj.__class__.__name__}.{obj.id}"
+                obj_dict[key] = obj
         else:
             for val in all_classes.values():
-                for row in self.__session.query(val):
-                    obj_dict.update({"{}.{}: {}".
-                                    format(type(row).__name__, row.id,): row})
+                for obj in self.__session.query(val):
+                    key = f"{obj.__class__.__name__}.{obj.id}"
+                    obj_dict[key] = obj
         return obj_dict
-
 
     def new(self, obj):
         """
@@ -66,13 +72,11 @@ class DBStorage:
         """
         self.__session.add(obj)
 
-
     def save(self):
         """
         Commit current database session
         """
         self.__session.commit()
-
 
     def delete(self, obj=None):
         """
@@ -85,7 +89,6 @@ class DBStorage:
             # query class table and delete
             self.__session.query(cls_name).\
                 filter(cls_name.id == obj.id).delete()
-
 
     def reload(self):
         """
