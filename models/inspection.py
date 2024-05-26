@@ -1,48 +1,53 @@
 #!/usr/bin/python3
-"""Record harvests"""
-from models.base_model import BaseModel
-from datetime import datetime
+"""Inspection class"""
 import models
+from models.base_model import BaseModel, Base
+import sqlalchemy
+from sqlalchemy import Column, String, ForeignKey
+from sqlachemy.orm import relationship
+from datetime import datetime
 
 
-class Inspection(BaseModel):
-    """ harvests management"""
+class Inspection(BaseModel, Base):
+    """Define inspection class"""
+    if models.storage_type == 'db':
+        # use database
+        __tablename__ = 'inspections'
+
+        hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
+        observations = Column(String(1024), nullable=True)
+        ready_for_harvest = Column(String(5), default='No')
+    else:
+        # use file storage
+        hive_id = ''
+        observations = ''
+        ready_for_harvest = ''
+
     def __init__(self, *args, **kwargs):
+        """Initialize inspection"""
         super().__init__(*args, **kwargs)
-        self.hive_id = kwargs.get('hive_id')
-        self.notes = kwargs.get('notes')
-        self.hive_status = kwargs.get('hive_status')
-        self.valid_hive = self.validate_hive()
-
 
     def validate_hive(self):
+        """ check if hive is valid"""
         if self.hive_id:
             beehive = models.storage.get("Beehive", self.hive_id)
             if beehive:
                 return True
         return False
 
-
     def update_notes(self, update_text):
-        """update the notes"""
+        """update the observations"""
         if update_text:
             self.notes = update_text
             self.updated_at = datetime.now()
 
     def set_harvest_ready(self):
-        """set harvest ready"""
+        """set harvest status"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
             if hasattr(beehive, 'ready_for_harvest'):
-                beehive.ready_for_harvest = self.hive_status
+                beehive.ready_for_harvest = self.ready_for_harvest
             else:
-                setattr(beehive, 'ready_for_harvest', self.hive_status)
+                setattr(beehive, 'ready_for_harvest', self.ready_for_harvest)
         else:
             return f"Beehive does not exist"
-        
-
-if __name__ == "__main__":
-    inspection = Inspection("HIVE-002", "Good condition")
-    print(inspection.to_dict())
-    inspection.update_notes("Ants trying to enter the colony")
-    print(inspection.to_dict())
