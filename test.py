@@ -4,6 +4,8 @@ from models import storage
 from models.user import User
 from models.apiary import Apiary
 from models.beehive import Beehive
+from models.inspection import Inspection
+from models.harvest import Harvest
 
 
 
