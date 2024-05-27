@@ -7,28 +7,57 @@ from models.beehive import Beehive
 from models.inspection import Inspection
 from models.harvest import Harvest
 
-
-
 # create user
-user_attr = {"first_name": "Julius", "last_name": "Wamuyu",
-             "yob": 1990, "email": "me@mymail.com"
-            }
+user_attr = {"first_name": "Julius", "last_name": "Wamuyu", "yob": "1990"}
 user = User(**user_attr)
 storage.new(user)
-storage.save()
 
 # create apiary
-apiary_attr = {"name": "Kigumo", "longitude": 2.2222,
-               "latitude": 1.1111, "user_id":user.id,
-               "description": "first set up"
-               }
+apiary_attr = {"name": "Kigumo", "location": "Nyahururu", "user": "Julius"}
 apiary = Apiary(**apiary_attr)
 storage.new(apiary)
+
+# create beehive
+hive_attr = {"apiary_id": "becf6c14-ebdc-41b0-a371-9efc3ccac78b"}
+beehive = Beehive(**hive_attr)
+storage.new(beehive)
+
+# inspect hive
+insp_attr = {"hive_id": "3", "notes": "the hive is full. Needs to be harvested", "hive_status": True}
+try:
+    inspection = Inspection(**insp_attr)
+    if not inspection.hive_status:
+        raise ValueError("Hive not ready!")
+    inspection.set_harvest_ready()
+except Exception as e:
+    print(e)
+storage.new(inspection)
+
+# harvest honey
+harv_attr = {"hive_id": "3", 'notes': "All frames are filled and capped", "quantity": 20, "nothing": "gibberish"}
+harvest = Harvest(**harv_attr)
+storage.new(harvest)
+
+# set the next harvest date
+harvest.next_harvest()
+
+'''
+# add new objects to objects dictionary
+storage.new(apiary)
+storage.new(user)
+storage.new(beehive)
+
+storage.new(inspection)
+storage.new(harvest)
+'''
+# save the changes
 storage.save()
 
-for num in range(5):
-    beehive_attr = {"apiary_id": apiary.id}
-    beehive = Beehive(**beehive_attr)
-    storage.new(beehive)
-storage.save()
+print("----------View Profile-------------")
+print(user.view_profile())
+print("----------all----------------------")
+print(storage.all(Beehive))
+print("----------get----------------------")
+print(storage.get("Beehive", "1"))
+print(storage.get("Beehive", "3"))
 
