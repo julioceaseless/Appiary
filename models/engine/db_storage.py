@@ -108,3 +108,20 @@ class DBStorage:
         Close scoped session
         """
         self.__session.remove()
+
+    def get(self, cls, id):
+        """ retrieves one object """
+        # check if cls is valid and exists
+        if cls and id:
+            if isinstance(cls, str) and cls in classes.keys():
+                cls_obj = classes[cls]
+            else:
+                cls_obj = cls
+            # search in current database session
+            try:
+                obj = self.__session.query(cls_obj).get(id)
+                return obj
+            except Exception as e:
+                return None
+        else:
+            return None
