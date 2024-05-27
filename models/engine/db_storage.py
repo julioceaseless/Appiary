@@ -113,8 +113,8 @@ class DBStorage:
         """ retrieves one object """
         # check if cls is valid and exists
         if cls and id:
-            if isinstance(cls, str) and cls in classes.keys():
-                cls_obj = classes[cls]
+            if isinstance(cls, str) and cls in all_classes.keys():
+                cls_obj = all_classes[cls]
             else:
                 cls_obj = cls
             # search in current database session
