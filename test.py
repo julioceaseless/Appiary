@@ -29,6 +29,13 @@ storage.save()
 for num in range(5):
     beehive_attr = {"apiary_id": apiary.id}
     beehive = Beehive(**beehive_attr)
-    storage.new(beehive)
-storage.save()
+    beehive.save()
+
+# inspection
+insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": "yes"}
+inspection = Inspection(**insp_attr)
+
+inspection.save()
+inspection.set_harvest_ready()
+
 
