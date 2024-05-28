@@ -45,6 +45,8 @@ class Harvest(BaseModel, Base):
             if beehive.ready_for_harvest:
                 # reset ready flag
                 beehive.ready_for_harvest = False
+                # track number of harvests
+                beehive.harvest_count += 1
 
                 # calculate the next harvest date
                 current_month = datetime.now().month
