@@ -40,7 +40,7 @@ class Harvest(BaseModel, Base):
                 self.id = int(kwargs['id'])
         else:
             if 'id' in kwargs:
-                self.id = int(kwargs['id']
+                self.id = int(kwargs['id'])
 
     def set_next_harvest(self):
         """modifies the Beehive object to schedule the next harvest date"""
