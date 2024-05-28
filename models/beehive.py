@@ -26,6 +26,7 @@ class Beehive(BaseModel, Base):
         apiary_id = Column(String(60), ForeignKey('apiaries.id'), nullable=False)
         ready_for_harvest = Column(Boolean, default=False)
         next_harvest_date = Column(DateTime, default=default_time)
+        harvest_count = Column(Integer, default=0)
 
         # relationships
         # inspections = relationship('Inspection', back_populates='beehive')
@@ -34,6 +35,7 @@ class Beehive(BaseModel, Base):
         apiary_id = ""
         ready_for_harvest = False
         next_harvest_date = "TBD"
+        harvest_count = 0
 
 
     def __init__(self, *args, **kwargs):
