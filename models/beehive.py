@@ -22,7 +22,7 @@ class Beehive(BaseModel, Base):
         __tablename__ = 'beehives'
 
         # override the UUID column with integer type
-        id = Column(Integer, primary_key=True)
+        id = Column(Integer, primary_key=True, autoincrement=True)
         apiary_id = Column(String(60), ForeignKey('apiaries.id'), nullable=False)
         ready_for_harvest = Column(Boolean, default=False)
         next_harvest_date = Column(DateTime, default=default_time)
@@ -42,15 +42,21 @@ class Beehive(BaseModel, Base):
         
         """initialize beehive"""
         super().__init__(*args, **kwargs)
-        if not kwargs.get('id'):
-            Beehive._last_id += 1
-            self.id = str(Beehive._last_id)
+        if models.storage_type != 'db':
+            if 'id' not in kwargs:
+                Beehive._last_id += 1
+                self.id = Beehive._last_id
+            else:
+                self.id = int(kwargs['id'])
         else:
-            self.id = str(kwargs['id'])
+            if 'id' in kwargs:
+                self.id = int(kwargs['id'])
 
-        # self.inspections = []
-        # self.harvests = []
-    
+            # Set instance attributes using kwargs or class-level defaults
+        self.apiary_id = kwargs.get('apiary_id', self.__class__.apiary_id)
+        self.ready_for_harvest = kwargs.get('ready_for_harvest', self.__class__.ready_for_harvest)
+        self.next_harvest_date = kwargs.get('next_harvest_date', self.__class__.next_harvest_date)
+        self.harvest_count = kwargs.get('harvest_count', self.__class__.harvest_count)
 
     '''
     def add_inspection(self, inspection):
