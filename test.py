@@ -35,7 +35,7 @@ for num in range(5):
 insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": "yes"}
 inspection = Inspection(**insp_attr)
 
-inspection.save()
 inspection.set_harvest_ready()
+inspection.save()
 
 
