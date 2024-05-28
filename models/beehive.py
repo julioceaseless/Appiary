@@ -8,6 +8,9 @@ from datetime import datetime
 from os import environ
 
 
+# default time
+default_time = datetime(1970, 1, 1)
+
 class Beehive(BaseModel, Base):
     """Define beehive model"""
     
@@ -22,7 +25,7 @@ class Beehive(BaseModel, Base):
         id = Column(Integer, primary_key=True)
         apiary_id = Column(String(60), ForeignKey('apiaries.id'), nullable=False)
         ready_for_harvest = Column(Boolean, default=False)
-        next_harvest_date = Column(DateTime, default=datetime.utcnow)
+        next_harvest_date = Column(DateTime, default=default_time)
 
         # relationships
         # inspections = relationship('Inspection', back_populates='beehive')
