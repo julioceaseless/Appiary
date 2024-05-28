@@ -33,7 +33,15 @@ for num in range(5):
 # inspection
 insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": True}
 inspection = Inspection(**insp_attr)
-sleep(30)
+sleep(10)
 inspection.set_harvest_ready()
 inspection.save()
 
+
+# havest
+new_beehive = storage.get("Beehive", 2)
+if new_beehive.ready_for_harvest:
+    # record harvest details
+    harvest_attr = {"hive_id": 2, "quantity": 9.70, "notes": "bamper harvest"}
+    harvest = Harvest(**harvest_attr)
+    harvest.save()
