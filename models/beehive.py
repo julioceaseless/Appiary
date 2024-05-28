@@ -42,21 +42,16 @@ class Beehive(BaseModel, Base):
         
         """initialize beehive"""
         super().__init__(*args, **kwargs)
-        if models.storage_type != 'db':
-            if 'id' not in kwargs:
-                Beehive._last_id += 1
-                self.id = Beehive._last_id
-            else:
-                self.id = int(kwargs['id'])
+        if 'id' not in kwargs:
+            Beehive._last_id += 1
+            self.id = Beehive._last_id
         else:
-            if 'id' in kwargs:
-                self.id = int(kwargs['id'])
-
-            # Set instance attributes using kwargs or class-level defaults
-        self.apiary_id = kwargs.get('apiary_id', self.__class__.apiary_id)
-        self.ready_for_harvest = kwargs.get('ready_for_harvest', self.__class__.ready_for_harvest)
-        self.next_harvest_date = kwargs.get('next_harvest_date', self.__class__.next_harvest_date)
-        self.harvest_count = kwargs.get('harvest_count', self.__class__.harvest_count)
+            self.id = int(kwargs['id'])
+        # Set instance attributes using kwargs or class-level defaults
+        # self.apiary_id = kwargs.get('apiary_id', self.__class__.apiary_id)
+        # self.ready_for_harvest = kwargs.get('ready_for_harvest', self.__class__.ready_for_harvest)
+        # self.next_harvest_date = kwargs.get('next_harvest_date', self.__class__.next_harvest_date)
+        # self.harvest_count = kwargs.get('harvest_count', self.__class__.harvest_count)
 
     '''
     def add_inspection(self, inspection):
