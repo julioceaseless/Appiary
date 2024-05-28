@@ -3,7 +3,7 @@
 import models
 from models.base_model import BaseModel, Base
 import sqlalchemy
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, String, Boolean, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
@@ -16,7 +16,7 @@ class Inspection(BaseModel, Base):
 
         hive_id = Column(Integer, ForeignKey('beehives.id'), nullable=False)
         observations = Column(String(1024), nullable=True)
-        ready_for_harvest = Column(String(5), default='No')
+        ready_for_harvest = Column(Boolean, default=False)
     else:
         # use file storage
         hive_id = ''
