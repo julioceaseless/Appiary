@@ -38,7 +38,7 @@ class Harvest(BaseModel, Base):
         else:
             self.id = kwargs['id']
 
-    def schedule_next_harvest(self):
+    def set_next_harvest(self):
         """modifies the Beehive object to schedule the next harvest date"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
@@ -60,7 +60,7 @@ class Harvest(BaseModel, Base):
                     beehive.next_harvest_date = next_harvest_date
                 else:
                     setattr(beehive, 'next_harvest_date', next_harvest_date)
-                return next_harvest_date
+                beehive.update()
             else:
                 return f"{beehive.id} is not ready for harvest!"
         else:
