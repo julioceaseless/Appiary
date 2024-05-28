@@ -49,5 +49,6 @@ class Inspection(BaseModel, Base):
                 beehive.ready_for_harvest = self.ready_for_harvest
             else:
                 setattr(beehive, 'ready_for_harvest', self.ready_for_harvest)
+            beehive.update()
         else:
             return f"Beehive does not exist"
