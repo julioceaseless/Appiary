@@ -42,39 +42,9 @@ class Beehive(BaseModel, Base):
         
         """initialize beehive"""
         super().__init__(*args, **kwargs)
-        if 'id' not in kwargs:
-            Beehive._last_id += 1
-            self.id = Beehive._last_id
-        else:
-            self.id = int(kwargs['id'])
-        # Set instance attributes using kwargs or class-level defaults
-        # self.apiary_id = kwargs.get('apiary_id', self.__class__.apiary_id)
-        # self.ready_for_harvest = kwargs.get('ready_for_harvest', self.__class__.ready_for_harvest)
-        # self.next_harvest_date = kwargs.get('next_harvest_date', self.__class__.next_harvest_date)
-        # self.harvest_count = kwargs.get('harvest_count', self.__class__.harvest_count)
-
-    '''
-    def add_inspection(self, inspection):
-        """record inspections"""
-        if not isinstance(inspection, Inspection):
-            raise TypeError("Expected an object")
-        else:
-            self.inspection.append(inspection)
-
-
-    def add_harvest(self, harvest):
-        """record harvests"""
-        if not isinstance(harvest, Harvest):
-            raise TypeError("Expected an object")
-        else:
-            self.harvests.append(harvest)
-    '''
-
-    
-    def update_harvest_status(self, status):
-        """update whether the beehive is ready for harvest"""
-        if status == True: 
-            self.ready_for_harvest = True
-        else:
-            self.ready_for_harvest = False
-
+        if models.storage_type != 'db': 
+            if not kwargs.get('id'):
+                Beehive._last_id += 1
+                self.id = Beehive._last_id
+            else:
+                self.id = int(kwargs['id'])
