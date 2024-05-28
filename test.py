@@ -6,7 +6,7 @@ from models.apiary import Apiary
 from models.beehive import Beehive
 from models.inspection import Inspection
 from models.harvest import Harvest
-
+from time import sleep
 
 
 # create user
@@ -32,9 +32,8 @@ for num in range(5):
     beehive.save()
 
 # inspection
-insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": "yes"}
+insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": True}
 inspection = Inspection(**insp_attr)
-
 inspection.set_harvest_ready()
 inspection.save()
 
