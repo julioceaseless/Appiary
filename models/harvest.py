@@ -9,7 +9,7 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from datetime import datetime
 
 
-class Harvest(BaseModel):
+class Harvest(BaseModel, Base):
     """Define harvest class"""
     _last_id = 0
 
