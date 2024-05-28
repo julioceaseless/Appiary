@@ -32,15 +32,11 @@ class Harvest(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initialize Harvest"""
         super().__init__(*args, **kwargs)
-        if models.storage_type != 'db':
-            if 'id' not in kwargs:
-                Harvest._last_id += 1
-                self.id = Harvest._last_id
-            else:
-                self.id = int(kwargs['id'])
+        if 'id' not in kwargs:
+            Harvest._last_id += 1
+            self.id = Harvest._last_id
         else:
-            if 'id' in kwargs:
-                self.id = int(kwargs['id'])
+            self.id = int(kwargs['id'])
 
     def set_next_harvest(self):
         """modifies the Beehive object to schedule the next harvest date"""
