@@ -79,6 +79,12 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
+    def update(self):
+        """
+        Update the updated_at attribute to reflect the last
+        time  change was made
+        """
+        self.updated_at = datetime.utcnow()
 
     def __str__(self):
         """Return String representation of the object"""
