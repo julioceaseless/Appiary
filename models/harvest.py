@@ -18,7 +18,7 @@ class Harvest(BaseModel, Base):
         __tablename__ = 'harvests'
 
         # override the UUID column with integer ID
-        id = Column(Integer, primary_key=True)
+        id = Column(Integer, primary_key=True, autoincrement=True)
 
         hive_id = Column(Integer, ForeignKey('beehives.id'), nullable=False)
         quantity = Column(Float, default=0.00)
@@ -32,11 +32,15 @@ class Harvest(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initialize Harvest"""
         super().__init__(*args, **kwargs)
-        if not kwargs.get('id'):
-            Harvest._last_id += 1
-            self.id = Harvest._last_id
+        if models.storage_type != 'db':
+            if 'id' not in kwargs:
+                Harvest._last_id += 1
+                self.id = Harvest._last_id
+            else:
+                self.id = int(kwargs['id'])
         else:
-            self.id = kwargs['id']
+            if 'id' in kwargs:
+                self.id = int(kwargs['id']
 
     def set_next_harvest(self):
         """modifies the Beehive object to schedule the next harvest date"""
