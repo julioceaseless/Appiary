@@ -20,7 +20,7 @@ class Harvest(BaseModel, Base):
         # override the UUID column with integer ID
         id = Column(Integer, primary_key=True)
 
-        hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
+        hive_id = Column(Integer, ForeignKey('beehives.id'), nullable=False)
         quantity = Column(Float, default=0.00)
         notes = Column(String(1024), nullable=True)
     else:
