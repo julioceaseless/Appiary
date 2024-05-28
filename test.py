@@ -44,5 +44,5 @@ if new_beehive.ready_for_harvest:
     # record harvest details
     harvest_attr = {"hive_id": 2, "quantity": 9.70, "notes": "bamper harvest"}
     harvest = Harvest(**harvest_attr)
-    harvest.save()
     harvest.set_next_harvest()
+    harvest.save()
