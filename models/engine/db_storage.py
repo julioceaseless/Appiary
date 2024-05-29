@@ -125,3 +125,10 @@ class DBStorage:
                 return None
         else:
             return None
+
+    def count(self, cls=None):
+        """count the number of records"""
+        if cls:
+            return len(self.all(cls))
+        else:
+            return len(self.all())
