@@ -15,14 +15,13 @@ class Beehive(BaseModel, Base):
     """Define beehive model"""
     
     # class level attribute to track the last used ID
-    _last_id = 0
+    # _last_id = 0
     
     if models.storage_type == 'db':
         # use database
         __tablename__ = 'beehives'
 
         # override the UUID column with integer type
-        id = Column(Integer, primary_key=True, autoincrement=True)
         apiary_id = Column(String(60), ForeignKey('apiaries.id'), nullable=False)
         ready_for_harvest = Column(Boolean, default=False)
         next_harvest_date = Column(DateTime, default=default_time)
@@ -42,9 +41,3 @@ class Beehive(BaseModel, Base):
         
         """initialize beehive"""
         super().__init__(*args, **kwargs)
-        if models.storage_type != 'db': 
-            if not kwargs.get('id'):
-                Beehive._last_id += 1
-                self.id = Beehive._last_id
-            else:
-                self.id = int(kwargs['id'])
