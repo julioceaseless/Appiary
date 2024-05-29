@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, Boolean
 from slqalchemy import ForeignKey, DateTime
+from sqlalchemy.orm import relationship
 from datetime import datetime
 from os import environ
 

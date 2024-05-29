@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 from os import environ
 import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Apiary(BaseModel, Base):
