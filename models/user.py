@@ -8,6 +8,7 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
+
 class User(BaseModel, Base):
     """
     create user class
@@ -19,6 +20,9 @@ class User(BaseModel, Base):
         email = Column(String(128), nullable=False)
         yob = Column(Integer, nullable=False)
 
+        # Establish relationship with Apiary
+        apiaries = relationship('Apiary', backref='user',
+                                cascade='all, delete-orphan')
     else:
         first_name = ""
         last_name = ""
@@ -27,7 +31,6 @@ class User(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
 
     if models.storage_type != 'db':
         @property
