@@ -7,8 +7,6 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 
 
-
-
 class Apiary(BaseModel, Base):
     """define an apiary"""
     if models.storage_type == 'db':
@@ -18,6 +16,10 @@ class Apiary(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         latitude = Column(Float, nullable=True)
         description = Column(String(1024), nullable=True)
+
+        # Establish relationship with Beehive
+        beehives = relationship('Beehive', backref='apiary',
+                                cascade='all, delete-orphan')
     else:
         user_id = ""
         name = ""
@@ -25,6 +27,5 @@ class Apiary(BaseModel, Base):
         latitude = ""
         description = ""
 
-
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)        
+        super().__init__(*args, **kwargs)
