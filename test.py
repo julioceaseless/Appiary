@@ -30,8 +30,15 @@ for num in range(5):
     beehive = Beehive(**beehive_attr)
     beehive.save()
 
+# retrieve a beehive
+beehive_keys = list(storage.all("Beehive").keys())
+beehive_id = beehive_keys[1].split('.')[1]
+beehive_id = "24e3b4e2-86dd-45b3-b6d6-ad3ab609e8d9"
+print(f"Beehive_ID: {beehive_id}")
+
+print(storage.get("Beehive", beehive_id))
 # inspection
-insp_attr = {"hive_id": 2, "observations": "This is a strong colony", "ready_for_harvest": True}
+insp_attr = {"hive_id": beehive_id, "observations": "This is a strong colony", "ready_for_harvest": True}
 inspection = Inspection(**insp_attr)
 sleep(10)
 inspection.set_harvest_ready()
@@ -39,10 +46,10 @@ inspection.save()
 
 
 # havest
-new_beehive = storage.get("Beehive", 2)
+new_beehive = storage.get("Beehive", beehive_id)
 if new_beehive.ready_for_harvest:
     # record harvest details
-    harvest_attr = {"hive_id": 2, "quantity": 9.70, "notes": "bamper harvest"}
+    harvest_attr = {"hive_id": beehive_id, "quantity": 9.70, "notes": "bamper harvest"}
     harvest = Harvest(**harvest_attr)
     harvest.set_next_harvest()
     harvest.save()
