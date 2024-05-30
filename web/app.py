@@ -25,7 +25,7 @@ def list_apiaries():
     apiary_list = []
     apiaries = storage.all('Apiary')
     for key in apiaries.keys():
-        apiary_list.append(key.replace('.',': '))
+        apiary_list.append(key)
     return render_template('list_apiaries.html', apiaries=apiary_list)
 
 @app.route('/apiary/<apiary_id>')
@@ -36,14 +36,23 @@ def view_apiary(apiary_id):
 @app.route('/apiary/add', methods=['GET', 'POST'])
 def add_apiary():
     if request.method == 'POST':
+        user_id = request.form['user']
         name = request.form['name']
-        location = request.form['latitude']
-        new_apiary = Apiary(name=name, latitude=latitude)
-        new_apiary.save()
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
+        data = {'user_id': user_id,
+                'name': name,
+                'latitude': latitude,
+                'longitude': longitude
+                }
+        apiary = Apiary(**data)
+        apiary.save()
         return redirect(url_for('list_apiaries'))
-    return render_template('add_apiary.html')
 
-@app.route('/apiary/delete/<int:apiary_id>', methods=['POST'])
+    users = storage.all('User')
+    return render_template('add_apiary.html', users=users)
+
+@app.route('/apiary/delete/<apiary_id>', methods=['POST'])
 def delete_apiary(apiary_id):
     apiary = Apiary.query.get_or_404(apiary_id)
     db.session.delete(apiary)
