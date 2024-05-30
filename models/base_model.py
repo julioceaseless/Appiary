@@ -63,9 +63,9 @@ class BaseModel:
 
         # remove InstanceState object
         if "_sa_instance_state" in new_dict:
-            del new_dict["_sa_instance_state"]
+            del obj_dict["_sa_instance_state"]
 
-        return obj__dict
+        return obj_dict
 
 
     def delete(self):
