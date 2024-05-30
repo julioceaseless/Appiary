@@ -55,12 +55,15 @@ def post_harvest():
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    if 'email' not in request.get_json():
-        abort(400, description="Missing email")
-    if 'password' not in request.get_json():
-        abort(400, description="Missing password")
+    if 'hive_id' not in request.get_json():
+        abort(400, description="Missing Beehive ID")
+    if 'quantity' not in request.get_json():
+        abort(400, description="Missing quantity")
 
     data = request.get_json()
+    # check if the beehive exists
+    if storage.get('Beehive', data.get('hive_id')) is None:
+        abort(400, description="Beehive does not exist")
     new_harvest = Harvest(**data)
     new_harvest.save()
     return make_response(jsonify(new_harvest.to_dict()), 201)
@@ -79,7 +82,7 @@ def put_harvest(harvest_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'email', 'created_at', 'updated_at']
+    ignore = ['id', 'created_at', 'updated_at']
 
     data = request.get_json()
     for key, value in data.items():
