@@ -62,7 +62,7 @@ class BaseModel:
         obj_dict['updated_at'] = self.updated_at.isoformat()
 
         # remove InstanceState object
-        if "_sa_instance_state" in new_dict:
+        if "_sa_instance_state" in obj_dict:
             del obj_dict["_sa_instance_state"]
 
         return obj_dict
