@@ -44,23 +44,25 @@ def delete_beehive(beehive_id):
     storage.delete(beehive)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return make_response(jsonify({"message": "User deleted successfully!"}), 200)
 
 
 @app_views.route('/beehives', methods=['POST'], strict_slashes=False)
 def post_beehive():
     """
-    Creates a beehive
+    Creates a new beehive
     """
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    if 'email' not in request.get_json():
-        abort(400, description="Missing email")
-    if 'password' not in request.get_json():
-        abort(400, description="Missing password")
+    if 'apiary_id' not in request.get_json():
+        abort(400, description="Missing apiary ID")
 
     data = request.get_json()
+    # check if the apiary exists
+    if storage.get('Apiary', data.get('apiary_id')) is None:
+        abort(400, description="Apiary does not exist")
+
     new_beehive = Beehive(**data)
     new_beehive.save()
     return make_response(jsonify(new_beehive.to_dict()), 201)
@@ -79,7 +81,7 @@ def put_beehive(beehive_id):
     if not request.get_json():
         abort(400, description="Not a JSON")
 
-    ignore = ['id', 'email', 'created_at', 'updated_at']
+    ignore = ['id', 'created_at', 'updated_at']
 
     data = request.get_json()
     for key, value in data.items():
