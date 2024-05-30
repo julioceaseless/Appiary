@@ -44,7 +44,7 @@ def delete_harvest(harvest_id):
     storage.delete(harvest)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return make_response(jsonify({"message": "Deleted successfully"}), 200)
 
 
 @app_views.route('/harvests', methods=['POST'], strict_slashes=False)
