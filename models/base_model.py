@@ -54,13 +54,18 @@ class BaseModel:
     def to_dict(self):
         """serialize an object to dictionary"""
         # retrieve dictionary representation of the object
-        obj_to_dict = self.__dict__.copy()
+        obj_dict = self.__dict__.copy()
         # add class attribute
-        obj_to_dict['__class__'] = self.__class__.__name__
+        obj_dict['__class__'] = self.__class__.__name__
         # convert datetime object to ISO formart
-        obj_to_dict['created_at'] = self.created_at.isoformat()
-        obj_to_dict['updated_at'] = self.updated_at.isoformat()
-        return obj_to_dict
+        obj_dict['created_at'] = self.created_at.isoformat()
+        obj_dict['updated_at'] = self.updated_at.isoformat()
+
+        # remove InstanceState object
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+
+        return obj__dict
 
 
     def delete(self):
