@@ -44,7 +44,7 @@ def delete_beehive(beehive_id):
     storage.delete(beehive)
     storage.save()
 
-    return make_response(jsonify({"message": "User deleted successfully!"}), 200)
+    return make_response(jsonify({"message": "Deleted successfully!"}), 200)
 
 
 @app_views.route('/beehives', methods=['POST'], strict_slashes=False)

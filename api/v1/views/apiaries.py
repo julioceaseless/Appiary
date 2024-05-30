@@ -44,7 +44,7 @@ def delete_apiary(apiary_id):
     storage.delete(apiary)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return make_response(jsonify({"message": "Deleted successfully!"}), 200)
 
 
 @app_views.route('/apiaries', methods=['POST'], strict_slashes=False)

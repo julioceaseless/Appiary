@@ -44,7 +44,7 @@ def delete_inspection(inspection_id):
     storage.delete(inspection)
     storage.save()
 
-    return make_response(jsonify({}), 200)
+    return make_response(jsonify({"message": "Deleted Successfully!"}), 200)
 
 
 @app_views.route('/inspections', methods=['POST'], strict_slashes=False)
