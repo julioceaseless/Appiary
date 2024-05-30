@@ -25,7 +25,7 @@ def list_apiaries():
     apiaries = storage.all('Apiary')
     return render_template('list_apiaries.html', apiaries=apiaries)
 
-@app.route('/apiary/<str:apiary_id>')
+@app.route('/apiary/<apiary_id>')
 def view_apiary(apiary_id):
     apiary = storage.get('Apiary', apiary_id)
     return render_template('view_apiary.html', apiary=apiary)
