@@ -18,10 +18,12 @@ def close_db(error):
 
 @app.route('/')
 def index():
+    """Home page"""
     return render_template('index.html')
 
 @app.route('/apiaries')
 def list_apiaries():
+    """List apiaries"""
     apiary_list = []
     apiaries = storage.all('Apiary')
     for key in apiaries.keys():
@@ -30,11 +32,13 @@ def list_apiaries():
 
 @app.route('/apiary/<apiary_id>')
 def view_apiary(apiary_id):
+    """View apiary"""
     apiary = storage.get('Apiary', apiary_id)
     return render_template('view_apiary.html', apiary=apiary)
 
 @app.route('/apiary/add', methods=['GET', 'POST'])
 def add_apiary():
+    """Add new apiary"""
     if request.method == 'POST':
         user_id = request.form['user']
         name = request.form['name']
@@ -54,9 +58,10 @@ def add_apiary():
 
 @app.route('/apiary/delete/<apiary_id>', methods=['POST'])
 def delete_apiary(apiary_id):
-    apiary = Apiary.query.get_or_404(apiary_id)
-    db.session.delete(apiary)
-    db.session.commit()
+    """Delete apiary"""
+    apiary = storage.get('Apiary', apiary_id)
+    storage.delete(apiary)
+    storage.save()
     return redirect(url_for('list_apiaries'))
 
 if __name__ == '__main__':
