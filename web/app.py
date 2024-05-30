@@ -22,8 +22,11 @@ def index():
 
 @app.route('/apiaries')
 def list_apiaries():
+    apiary_list = []
     apiaries = storage.all('Apiary')
-    return render_template('list_apiaries.html', apiaries=apiaries)
+    for key in apiaries.keys():
+        apiary_list.append(key.replace('.',': '))
+    return render_template('list_apiaries.html', apiaries=apiary_list)
 
 @app.route('/apiary/<apiary_id>')
 def view_apiary(apiary_id):
