@@ -7,8 +7,8 @@
     <form action="{{ url_for('add_apiary') }}" method="post">
 	<label for="user">User:</label>
 	<select id="user" name="user" required>
-		{% for user in users %}
-		<option value="{{ user.id }}">{{ user.name }}</option>
+		{% for user in users.values() %}
+		<option value="{{ user.id }}">{{ user.id }} - {{ user.first_name }}</option>
 		{% endfor %}
 	</select>
         <label for="name">Name:</label>
@@ -20,3 +20,4 @@
         <button type="submit">Add Apiary</button>
     </form>
 {% endblock %}
+
