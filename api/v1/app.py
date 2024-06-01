@@ -5,11 +5,17 @@ from api.v1.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
 from flasgger import Swagger
+import os
 
 
 app = Flask(__name__)
+
+
+# Determine the absolute path to swagger.yaml
+swagger_yaml_path = os.path.join(os.path.dirname(__file__), '../../docs/swagger.yaml')
+
 # integrate swagger to flask app and point it to swagger.yaml file
-swagger = Swagger(app, template_file='appiary/docs/swagger.yaml')
+swagger = Swagger(app, template_file=swagger_yaml_path)
 app.register_blueprint(app_views)
 
 # handle cross-origin requests errors between js and python
