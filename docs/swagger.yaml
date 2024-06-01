@@ -1,24 +1,29 @@
 swagger: "2.0"
 info:
-  description: "This is the API documentation for the Apiary project."
+  description: "This is the API documentation for the AppIARY project."
   version: "1.0.0"
-  title: "Apiary API"
-host: "localhost:5000"
+  title: "AppIARY API Documentation"
+host: "127.0.0.1:5000"
 basePath: "/api/v1"
 tags:
   - name: Users
-    description: "Operations related to users"
+    description: "CRUD operations related to users"
   - name: Apiaries
-    description: "Operations related to apiaries"
+    description: "CRUD operations related to apiaries"
   - name: Beehives
-    description: "Operations related to beehives"
+    description: "CRUD operations related to beehives"
   - name: Inspections
-    description: "Operations related to inspections"
+    description: "CRUD operations related to inspections"
   - name: Harvests
-    description: "Operations related to harvests"
+    description: "CRUD operations related to harvests"
 schemes:
   - http
 paths:
+  ---
+  -------------------------------------------------------------------------
+  User Model
+  -------------------------------------------------------------------------
+  ---
   /users:
     get:
       tags:
@@ -113,6 +118,11 @@ paths:
           description: "Invalid input"
         404:
           description: "User not found"
+  ---
+  -------------------------------------------------------------------------
+  Apiary Model
+  -------------------------------------------------------------------------
+  ---
   /apiaries:
     get:
       tags:
@@ -207,6 +217,11 @@ paths:
           description: "Invalid input"
         404:
           description: "Apiary not found"
+  --- 
+  ------------------------------------------------------------------------
+  Beehive Model
+  ------------------------------------------------------------------------
+  ---
   /beehives:
     get:
       tags:
@@ -301,6 +316,11 @@ paths:
           description: "Invalid input"
         404:
           description: "Beehive not found"
+  ---
+  -----------------------------------------------------------------------
+  Inspection Model
+  -----------------------------------------------------------------------
+  ---
   /inspections:
     get:
       tags:
@@ -395,6 +415,11 @@ paths:
           description: "Invalid input"
         404:
           description: "Inspection not found"
+  ---
+  -----------------------------------------------------------------------
+  Harvest Model
+  -----------------------------------------------------------------------
+  ---
   /harvests:
     get:
       tags:
@@ -489,6 +514,11 @@ paths:
           description: "Invalid input"
         404:
           description: "Harvest not found"
+---
+-------------------------------------------------------------------------
+DEFINITIONS
+-------------------------------------------------------------------------
+---
 definitions:
   User:
     type: "object"
