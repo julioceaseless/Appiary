@@ -19,6 +19,7 @@ tags:
 schemes:
   - http
 paths:
+  ########################## USER ENDPOINTS ##########################
   /users:
     get:
       tags:
@@ -113,6 +114,7 @@ paths:
           description: "Invalid input"
         404:
           description: "User not found"
+  ########################## APIARY ENDPOINTS ##########################
   /apiaries:
     get:
       tags:
@@ -207,6 +209,7 @@ paths:
           description: "Invalid input"
         404:
           description: "Apiary not found"
+  ########################## BEEHIVE ENDPOINTS ##########################
   /beehives:
     get:
       tags:
@@ -301,6 +304,7 @@ paths:
           description: "Invalid input"
         404:
           description: "Beehive not found"
+  ########################## INSPECTION ENDPOINTS ##########################
   /inspections:
     get:
       tags:
@@ -395,6 +399,7 @@ paths:
           description: "Invalid input"
         404:
           description: "Inspection not found"
+  ########################## HARVEST ENDPOINTS ##########################
   /harvests:
     get:
       tags:
@@ -489,6 +494,7 @@ paths:
           description: "Invalid input"
         404:
           description: "Harvest not found"
+########################## DEFINITIONS ##########################
 definitions:
   User:
     type: "object"
