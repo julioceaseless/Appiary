@@ -1,0 +1,290 @@
+swagger: '2.0'
+info:
+  version: "1.0.0"
+  title: API Documentation
+  description: API for managing users and beehives
+host: 'localhost:5000'
+basePath: '/'
+schemes:
+  - http
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Retrieves the list of all user objects
+      responses:
+        200:
+          description: A list of user objects
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: The user ID
+                name:
+                  type: string
+                  description: The user's name
+    post:
+      tags:
+        - Users
+      summary: Creates a user
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: The user's email
+                required: true
+              password:
+                type: string
+                description: The user's password
+                required: true
+      responses:
+        201:
+          description: User created
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The user ID
+              email:
+                type: string
+                description: The user's email
+              name:
+                type: string
+                description: The user's name
+        400:
+          description: Invalid input
+  /users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Retrieves a user
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the user to retrieve
+      responses:
+        200:
+          description: A user object
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The user ID
+              name:
+                type: string
+                description: The user's name
+        404:
+          description: User not found
+    delete:
+      tags:
+        - Users
+      summary: Deletes a user object
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the user to delete
+      responses:
+        200:
+          description: User successfully deleted
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Success message
+        404:
+          description: User not found
+    put:
+      tags:
+        - Users
+      summary: Updates a user
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the user to update
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The user's name
+      responses:
+        200:
+          description: User updated
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The user ID
+              name:
+                type: string
+                description: The user's name
+        400:
+          description: Invalid input
+        404:
+          description: User not found
+  /beehives:
+    get:
+      tags:
+        - Beehives
+      summary: Retrieves the list of all beehive objects
+      responses:
+        200:
+          description: A list of beehive objects
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: The beehive ID
+                apiary_id:
+                  type: string
+                  description: The apiary ID the beehive belongs to
+                name:
+                  type: string
+                  description: The beehive's name
+    post:
+      tags:
+        - Beehives
+      summary: Creates a new beehive
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              apiary_id:
+                type: string
+                description: The apiary ID the beehive belongs to
+                required: true
+              name:
+                type: string
+                description: The beehive's name
+      responses:
+        201:
+          description: Beehive created
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The beehive ID
+              apiary_id:
+                type: string
+                description: The apiary ID the beehive belongs to
+              name:
+                type: string
+                description: The beehive's name
+        400:
+          description: Invalid input or apiary does not exist
+  /beehives/{beehive_id}:
+    get:
+      tags:
+        - Beehives
+      summary: Retrieves a specific beehive
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the beehive to retrieve
+      responses:
+        200:
+          description: A beehive object
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The beehive ID
+              apiary_id:
+                type: string
+                description: The apiary ID the beehive belongs to
+              name:
+                type: string
+                description: The beehive's name
+        404:
+          description: Beehive not found
+    delete:
+      tags:
+        - Beehives
+      summary: Deletes a beehive object
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the beehive to delete
+      responses:
+        200:
+          description: Beehive successfully deleted
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Success message
+        404:
+          description: Beehive not found
+    put:
+      tags:
+        - Beehives
+      summary: Updates a beehive
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: The ID of the beehive to update
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The beehive's name
+      responses:
+        200:
+          description: Beehive updated
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The beehive ID
+              apiary_id:
+                type: string
+                description: The apiary ID the beehive belongs to
+              name:
+                type: string
+                description: The beehive's name
+        400:
+          description: Invalid input
+        404:
+          description: Beehive not found
