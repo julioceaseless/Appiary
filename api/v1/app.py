@@ -4,8 +4,11 @@ from models import storage
 from api.v1.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
+from flasgger import Swagger
+
 
 app = Flask(__name__)
+swagger = Swagger(app)
 app.register_blueprint(app_views)
 
 # handle cross-origin requests errors between js and python
@@ -20,11 +23,12 @@ def close_db(error):
 
 @app.errorhandler(404)
 def not_found(error):
-    """ 404 Error
+    """
+    404 Error
     ---
     responses:
       404:
-        description: a resource was not found
+        description: Resource was not found
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 
