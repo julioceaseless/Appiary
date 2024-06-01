@@ -8,7 +8,8 @@ from flasgger import Swagger
 
 
 app = Flask(__name__)
-swagger = Swagger(app)
+# integrate swagger to flask app and point it to swagger.yaml file
+swagger = Swagger(app, template_file='appiary/docs/swagger.yaml')
 app.register_blueprint(app_views)
 
 # handle cross-origin requests errors between js and python

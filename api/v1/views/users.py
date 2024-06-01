@@ -10,23 +10,6 @@ from flask import abort, jsonify, make_response, request
 def get_users():
     """
     Retrieves the list of all user objects
-    ---
-    tags:
-      - Users
-    responses:
-      200:
-        description: A list of user objects
-        schema:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: The user ID
-              name:
-                type: string
-                description: The user's name
     """
     all_users = storage.all('User').values()
     list_users = []
@@ -39,29 +22,6 @@ def get_users():
 def get_user(user_id):
     """
     Retrieves a user
-    ---
-    tags:
-      - Users
-    parameters:
-      - name: user_id
-        in: path
-        type: string
-        required: true
-        description: The ID of the user to retrieve
-    responses:
-      200:
-        description: A user object
-        schema:
-          type: object
-          properties:
-            id:
-              type: string
-              description: The user ID
-            name:
-              type: string
-              description: The user's name
-      404:
-        description: User not found
     """
     user = storage.get('User', user_id)
     if not user:
