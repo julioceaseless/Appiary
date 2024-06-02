@@ -8,5 +8,6 @@
         {% for apiary in apiaries %}
 	<li>{{ apiary }}</li>
         {% endfor %}
+	<li><a href="{{ url_for('add_apiary') }}">Add Apiary</a></li>
     </ul>
 {% endblock %}
