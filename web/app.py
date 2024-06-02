@@ -27,7 +27,7 @@ def list_apiaries():
     apiary_list = []
     apiaries = storage.all('Apiary')
     for obj in apiaries.values():
-        apiary_list.append(f'obj["id"] - obj["name"]')
+        apiary_list.append(f'{obj["id"]} - {obj["name"]}')
     return render_template('list_apiaries.html', apiaries=apiary_list)
 
 @app.route('/apiary/<apiary_id>')
