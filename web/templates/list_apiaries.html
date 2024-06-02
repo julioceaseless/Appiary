@@ -6,7 +6,7 @@
     <h1>Apiaries</h1>
     <ul>
         {% for apiary in apiaries %}
-	<li>{{ apiary }}</li>
+	<li><a href="apiary/{{ apiary.split(' - ')[1] }}">{{ apiary }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
