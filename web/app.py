@@ -26,15 +26,25 @@ def list_apiaries():
     """List apiaries"""
     apiary_list = []
     apiaries = storage.all('Apiary')
-    for obj in apiaries.values():
-        apiary_list.append(f'{obj.name} - {obj.id}')
+    for apiary_obj in apiaries.values():
+        apiary_list.append(f'{apiary_obj.name} - {apiary_obj.id}')
+    apiary_list.sort()
     return render_template('list_apiaries.html', apiaries=apiary_list)
 
 @app.route('/apiary/<apiary_id>')
 def view_apiary(apiary_id):
     """View apiary"""
+    hives_count = 0
     apiary = storage.get('Apiary', apiary_id)
-    return render_template('view_apiary.html', apiary=apiary)
+    # count hives in the apiary
+    hives = storage.all('Beehive')
+    if hives:
+        for hive in hives.values():
+            if hive.apiary_id == apiary_id:
+                hives_count += 1
+
+    return render_template('view_apiary.html', apiary=apiary,
+                                               hives_count=hives_count)
 
 @app.route('/apiary/add', methods=['GET', 'POST'])
 def add_apiary():
@@ -56,13 +66,14 @@ def add_apiary():
     users = storage.all('User')
     return render_template('add_apiary.html', users=users)
 
-@app.route('/apiary/delete/<apiary_id>', methods=['POST'])
+@app.route('/apiary/delete/<apiary_id>', methods=['GET'])
 def delete_apiary(apiary_id):
     """Delete apiary"""
     apiary = storage.get('Apiary', apiary_id)
     storage.delete(apiary)
     storage.save()
     return redirect(url_for('list_apiaries'))
+
 
 if __name__ == '__main__':
     """Main function"""
