@@ -39,3 +39,13 @@ form input, form button {
     margin-top: 5px;
 }
 
+.header_img {
+    display: block;
+    margin-left: 30%;
+    background-image: url("../images/apiary.jpg");
+    width: 200px;
+    height: 200px;
+    }
+.header_img img {
+  margin: 0 auto;
+  }
