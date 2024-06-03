@@ -5,6 +5,7 @@ from os import environ
 from flask import Flask, render_template, request, redirect, url_for
 from models.apiary import Apiary
 from models.beehive import Beehive
+import uuid
 
 # start flask
 app = Flask(__name__)
