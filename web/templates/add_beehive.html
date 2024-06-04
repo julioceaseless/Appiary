@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Add Beehive{% endblock %}
+
+{% block content %}
+    <h1>Add New Beehive</h1>
+    <form action="{{ url_for('add_beehive') }}" method="post">
+	<label for="apiary">Select Apiary:</label>
+	<select id="apiary" name="apiary" required>
+		{% for apiary in apiaries.values() %}
+		<option value="{{ apiary.id }}">{{ apiary.id }} - {{ apiary.name }}</option>
+		{% endfor %}
+	</select>
+        <button type="submit">Add Beehive</button>
+    </form>
+{% endblock %}
