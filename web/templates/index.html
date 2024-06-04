@@ -3,6 +3,27 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Apiary Management System</h1>
-    <p>Manage your apiaries, beehives, inspections, and harvests with ease.</p>
+  <h1>Welcome to the Apiary Management System</h1>
+  <p>Manage your apiaries, beehives, inspections, and harvests with ease.</p>
+  <h2>Dashboard</h2>
+  <div class="table">
+    <div class="table-row">
+      <div class="table-cell">
+        <div class="cell-title">Apiaries</div>
+	<p>{{ apiary_count }}</p>
+      </div>
+      <div class="table-cell">
+        <div class="cell-title">Beehives</div>
+	<p>{{ hive_count }}</p>
+      </div>
+      <div class="table-cell">
+        <div class="cell-title">Inspections</div>
+	<p>{{ inspect_count }}</p>
+      </div>
+      <div class="table-cell">
+        <div class="cell-title">Harvests</div>
+	<p>{{ harvest_count }}</p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

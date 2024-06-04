@@ -5,6 +5,7 @@ from os import environ
 from flask import Flask, render_template, request, redirect, url_for
 from models.apiary import Apiary
 from models.beehive import Beehive
+import requests
 import uuid
 
 # start flask
@@ -20,7 +21,19 @@ def close_db(error):
 @app.route('/')
 def index():
     """Home page"""
-    return render_template('index.html')
+    try:
+        response = requests.get("http://127.0.0.1:5000/api/v1/stats")
+        data = response.json()
+        hives = data.get('beehives')
+        apiaries = data.get('apiaries')
+        inspections = data.get('inspections')
+        harvests = data.get('harvests')
+    except Exception as e:
+        hives, apiaries, inspections, harvests = ['Error', 'Error', 'Error', 'Error']
+    return render_template('index.html', hive_count=hives,
+                                         apiary_count=apiaries,
+                                         inspect_count=inspections,
+                                         harvest_count=harvests)
 
 @app.route('/apiaries')
 def list_apiaries():

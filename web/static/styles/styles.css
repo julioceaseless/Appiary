@@ -20,7 +20,7 @@ nav ul li {
     padding: 20px;
 }
 
-h1 {
+h1, h2, h3 {
     color: #343a40;
 }
 
@@ -45,7 +45,35 @@ form input, form button {
     background-image: url("../images/apiary.jpg");
     width: 200px;
     height: 200px;
-    }
+}
+
 .header_img img {
   margin: 0 auto;
-  }
+}
+
+/*****************     Dashboard     *********************/
+.table {
+    display: table;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.table-cell p {
+    font-size:40px;
+}
+
+.cell-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
