@@ -92,11 +92,11 @@ def delete_apiary(apiary_id):
 if __name__ == '__main__':
     """Main function"""
 
-    host = environ.get('APPIARY_API_HOST')
-    port = environ.get('APPIARY_API_PORT')
-    if not host:
-        host = '0.0.0.0'
-    if not port:
-        port = '5555'
+    HOST = environ.get('APPIARY_API_HOST')
+    PORT = environ.get('APPIARY_API_PORT')
+    if not HOST:
+        HOST = '0.0.0.0'
+    if not PORT:
+        PORT = '5555'
     app.run(host=HOST, port=PORT, debug=True)
 
