@@ -33,7 +33,7 @@ for num in range(5):
 # retrieve a beehive
 beehive_keys = list(storage.all("Beehive").keys())
 beehive_id = beehive_keys[1].split('.')[1]
-beehive_id = "545f1a7f-5a4b-4f27-921b-81cfcb0c466d"
+beehive_id = "99f24d27-ac63-46e0-999a-6a5e3a317477"
 print(f"Beehive_ID: {beehive_id}")
 
 print(storage.get("Beehive", beehive_id))
