@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Beehives{% endblock %}
+
+{% block content %}
+    <h1>Beehives</h1>
+    {% if size > 0 %}
+      <ul>
+	{% for hive in beehives %}
+	  <li><a href="beehive/{{ hive }}">{{ hive }}</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>You don't have any beehives yet.</p>
+    {% endif %}
+    <div class="button">
+      <a href="{{ url_for('add_beehive') }}">Add Beehive</a>
+    </div>
+{% endblock %}

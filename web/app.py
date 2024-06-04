@@ -21,6 +21,7 @@ def close_db(error):
 @app.route('/')
 def index():
     """Home page"""
+    # show stats in dashboard
     try:
         response = requests.get("http://127.0.0.1:5000/api/v1/stats")
         data = response.json()
@@ -45,6 +46,16 @@ def list_apiaries():
     apiary_list.sort()
     return render_template('list_apiaries.html', apiaries=apiary_list)
 
+@app.route('/beehives')
+def list_beehives():
+    """List beehives"""
+    beehive_list = []
+    all_hives = storage.all('Beehive')
+    for hive in all_hives.values():
+        beehive_list.append(hive.id)
+    return render_template('list_beehives.html', beehives=beehive_list,
+                                                 size=len(beehive_list))
+
 @app.route('/apiary/<apiary_id>')
 def view_apiary(apiary_id):
     """View apiary"""
@@ -59,6 +70,12 @@ def view_apiary(apiary_id):
 
     return render_template('view_apiary.html', apiary=apiary,
                                                hives_count=hives_count)
+
+@app.route('/beehive/<beehive_id>')
+def view_beehive(beehive_id):
+    """View beehive"""
+    beehive = storage.get('Beehive', beehive_id)
+    return render_template('view_beehive.html', beehive=beehive)
 
 @app.route('/apiary/add', methods=['GET', 'POST'])
 def add_apiary():
@@ -80,6 +97,19 @@ def add_apiary():
     users = storage.all('User')
     return render_template('add_apiary.html', users=users)
 
+@app.route('/beehive/add', methods=['GET', 'POST'])
+def add_beehive():
+    """Add new beehive"""
+    if request.method == 'POST':
+        apiary_id = request.form['apiary']
+        data = {'apiary_id': apiary_id}
+        beehive = Beehive(**data)
+        beehive.save()
+        return redirect(url_for('list_beehives'))
+
+    apiaries = storage.all('Apiary')
+    return render_template('add_beehive.html', apiaries=apiaries)
+
 @app.route('/apiary/delete/<apiary_id>', methods=['GET'])
 def delete_apiary(apiary_id):
     """Delete apiary"""
@@ -87,6 +117,14 @@ def delete_apiary(apiary_id):
     storage.delete(apiary)
     storage.save()
     return redirect(url_for('list_apiaries'))
+
+@app.route('/beehive/delete/<beehive_id>', methods=['GET'])
+def delete_beehive(beehive_id):
+    """Delete apiary"""
+    beehive = storage.get('Beehive', beehive_id)
+    storage.delete(beehive)
+    storage.save()
+    return redirect(url_for('list_beehives'))
 
 
 if __name__ == '__main__':
