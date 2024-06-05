@@ -5,11 +5,11 @@
 {% block content %}
     <h1>Beehives</h1>
     {% if size > 0 %}
-      <ul>
+      <ol>
 	{% for hive in beehives %}
 	  <li><a href="beehive/{{ hive }}">{{ hive }}</a></li>
         {% endfor %}
-      </ul>
+      </ol>
       {% else %}
       <p>You don't have any beehives yet.</p>
     {% endif %}
