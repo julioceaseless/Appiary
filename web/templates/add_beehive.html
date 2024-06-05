@@ -11,6 +11,10 @@
 		<option value="{{ apiary.id }}">{{ apiary.id }} - {{ apiary.name }}</option>
 		{% endfor %}
 	</select>
+	<label for="type">Type of Hive:</label>
+	<input type="text" id="type" name="type" required>
+	<label for="wood">Type of Wood:</label>
+        <input type="wood" id="wood" name="wood" required>
         <button type="submit">Add Beehive</button>
     </form>
 {% endblock %}

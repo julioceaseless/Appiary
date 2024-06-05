@@ -102,7 +102,12 @@ def add_beehive():
     """Add new beehive"""
     if request.method == 'POST':
         apiary_id = request.form['apiary']
-        data = {'apiary_id': apiary_id}
+        hive_type = request.form['type']
+        wood_type = request.form['wood']
+        data = {'apiary_id': apiary_id,
+                'hive_type': hive_type,
+                'wood_type': wood_type
+               }
         beehive = Beehive(**data)
         beehive.save()
         return redirect(url_for('list_beehives'))
