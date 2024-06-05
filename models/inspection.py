@@ -37,7 +37,7 @@ class Inspection(BaseModel, Base):
         """set harvest status"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
-            beehive.update_status(ready_for_harvest)
+            beehive.update_status(self.ready_for_harvest)
             beehive.update()
         else:
             return f"Beehive does not exist"
