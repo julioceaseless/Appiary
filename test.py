@@ -40,14 +40,14 @@ print(storage.get("Beehive", beehive_id))
 # inspection
 insp_attr = {"hive_id": beehive_id, "observations": "This is a strong colony", "ready_for_harvest": True}
 inspection = Inspection(**insp_attr)
-sleep(10)
-inspection.set_harvest_ready()
+sleep(5)
+inspection.set_hive_status()
 inspection.save()
 
 
 # havest
 new_beehive = storage.get("Beehive", beehive_id)
-if new_beehive.ready_for_harvest:
+if new_beehive.ready_for_harvest():
     # record harvest details
     harvest_attr = {"hive_id": beehive_id, "quantity": 9.70, "notes": "bamper harvest"}
     harvest = Harvest(**harvest_attr)
