@@ -34,11 +34,15 @@ class Harvest(BaseModel, Base):
         """modifies the Beehive object to schedule the next harvest date"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
-            if beehive.ready_for_harvest:
+            if beehive.ready_for_harvest():
                 # reset ready flag
-                beehive.ready_for_harvest = False
-                # track number of harvests
-                beehive.harvest_count += 1
+                beehive.update_status(False)
+
+                # retrieve current number of harvests performed
+                harvest_count = beehive.harvest_count()
+                    
+                # increment harvests by one
+                harvest_count += 1
 
                 # calculate the next harvest date
                 current_month = datetime.now().month
@@ -49,11 +53,8 @@ class Harvest(BaseModel, Base):
                                              int(self.created_at.day)
                                              ).isoformat()
 
-                # set next harvest date
-                if hasattr(beehive, 'next_harvest_date'):
-                    beehive.next_harvest_date = next_harvest_date
-                else:
-                    setattr(beehive, 'next_harvest_date', next_harvest_date)
+                # update harvest count and next harvest date
+                beehive.update_harvest_info(next_harvest_date, harvest_count)
                 beehive.update()
             else:
                 return f"{beehive.id} is not ready for harvest!"

@@ -27,28 +27,17 @@ class Inspection(BaseModel, Base):
         """Initialize inspection"""
         super().__init__(*args, **kwargs)
 
-    def validate_hive(self):
-        """ check if hive is valid"""
-        if self.hive_id:
-            beehive = models.storage.get("Beehive", self.hive_id)
-            if beehive:
-                return True
-        return False
-
-    def update_notes(self, update_text):
+    def update_observations(self, update_text):
         """update the observations"""
         if update_text:
-            self.notes = update_text
+            self.observations = update_text
             self.updated_at = datetime.now()
 
-    def set_harvest_ready(self):
+    def set_hive_status(self):
         """set harvest status"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
-            if hasattr(beehive, 'ready_for_harvest'):
-                beehive.ready_for_harvest = self.ready_for_harvest
-            else:
-                setattr(beehive, 'ready_for_harvest', self.ready_for_harvest)
+            beehive.update_status(ready_for_harvest)
             beehive.update()
         else:
             return f"Beehive does not exist"
