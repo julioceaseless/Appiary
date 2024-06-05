@@ -30,6 +30,8 @@ class Beehive(BaseModel, Base):
         ready_for_harvest = Column(Boolean, default=False)
         next_harvest_date = Column(DateTime, default=default_time)
         harvest_count = Column(Integer, default=0)
+        hive_type = Column(String(60), nullable=False)
+        wood_type = Column(String(60), nullable=False)
 
         # Establish relationship with Inspection and Harvest
         inspections = relationship('Inspection', backref='beehive',
