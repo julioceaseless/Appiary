@@ -27,9 +27,11 @@ class Beehive(BaseModel, Base):
         # override the UUID column with integer type
         apiary_id = Column(String(60), ForeignKey('apiaries.id'),
                            nullable=False)
-        ready_for_harvest = Column(Boolean, default=False)
-        next_harvest_date = Column(DateTime, default=default_time)
-        harvest_count = Column(Integer, default=0)
+        _ready_for_harvest = Column(Boolean, default=False)
+        _next_harvest_date = Column(DateTime, default=default_time)
+        _harvest_count = Column(Integer, default=0)
+        hive_type = Column(String(60), nullable=False)
+        wood_type = Column(String(60), nullable=False)
 
         # Establish relationship with Inspection and Harvest
         inspections = relationship('Inspection', backref='beehive',
@@ -45,3 +47,28 @@ class Beehive(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initialize beehive"""
         super().__init__(*args, **kwargs)
+
+    @property
+    def ready_for_harvest(self):
+        '''Getter for ready_for_harvest'''
+        return self._ready_for_harvest
+
+    @property
+    def next_harvest_date(self):
+        '''Getter for next_harvest_date'''
+        return self._next_harvest_date
+
+    @property
+    def harvest_count(self):
+        '''Getter for harvest_count'''
+        return self._harvest_count
+
+    def update_status(self, ready_for_harvest):
+        '''Method to update if hive is ready for harvest'''
+        self._ready_for_harvest = ready_for_harvest
+
+    def update_harvest_info(self, next_harvest_date,
+                            harvest_count):
+        '''Method to update harvest info internally'''
+        self._next_harvest_date = next_harvest_date
+        self._harvest_count = harvest_count
