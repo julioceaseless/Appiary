@@ -26,14 +26,16 @@ apiary = Apiary(**apiary_attr)
 apiary.save()
 
 for num in range(5):
-    beehive_attr = {"apiary_id": apiary.id}
+    beehive_attr = {"apiary_id": apiary.id,
+                    "hive_type": "langstroth",
+                    "wood_type": "cypress"}
     beehive = Beehive(**beehive_attr)
     beehive.save()
 
 # retrieve a beehive
 beehive_keys = list(storage.all("Beehive").keys())
 beehive_id = beehive_keys[1].split('.')[1]
-beehive_id = "99f24d27-ac63-46e0-999a-6a5e3a317477"
+beehive_id = "51dc9d2e-fc58-4a7e-8a09-1d7204b27359"
 print(f"Beehive_ID: {beehive_id}")
 
 print(storage.get("Beehive", beehive_id))
