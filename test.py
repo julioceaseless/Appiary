@@ -49,7 +49,7 @@ inspection.save()
 
 # havest
 new_beehive = storage.get("Beehive", beehive_id)
-if new_beehive.ready_for_harvest():
+if new_beehive.ready_for_harvest:
     # record harvest details
     harvest_attr = {"hive_id": beehive_id, "quantity": 9.70, "notes": "bamper harvest"}
     harvest = Harvest(**harvest_attr)
