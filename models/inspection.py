@@ -34,7 +34,7 @@ class Inspection(BaseModel, Base):
             self.updated_at = datetime.now()
 
     def set_hive_status(self):
-        """set harvest status"""
+        """set harvest flag if hive is ready for harvest"""
         beehive = models.storage.get("Beehive", self.hive_id)
         if beehive:
             beehive.update_status(self.ready_for_harvest)
