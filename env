@@ -4,3 +4,6 @@ APPIARY_MYSQL_USER=appiary_db_user APPIARY_MYSQL_PWD=appiary_db_user_pwd APPIARY
 
 APPIARY_MYSQL_USER=appiary_db_user APPIARY_MYSQL_PWD=appiary_db_user_pwd APPIARY_MYSQL_HOST=localhost APPIARY_MYSQL_DB=appiary_db APPIARY_ENV=te APPIARY_TYPE_STORAGE=db ./test.py
 
+APPIARY_MYSQL_USER=appiary_db_user APPIARY_MYSQL_PWD=appiary_db_user_pwd APPIARY_MYSQL_HOST=localhost APPIARY_MYSQL_DB=appiary_db APPIARY_ENV=te APPIARY_TYPE_STORAGE=db gunicorn --bind 0.0.0.0:5050 api.v1.app:app
+
+APPIARY_MYSQL_USER=appiary_db_user APPIARY_MYSQL_PWD=appiary_db_user_pwd APPIARY_MYSQL_HOST=localhost APPIARY_MYSQL_DB=appiary_db APPIARY_ENV=te APPIARY_TYPE_STORAGE=db gunicorn --bind 0.0.0.0:5555 web.app:app

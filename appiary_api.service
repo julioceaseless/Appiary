@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn instance to serve appiary
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Appiary/api/v1
+Environment="PATH=/home/ubuntu/Appiary/venv/bin"
+# Add more environment variables
+Environment="APPIARY_MYSQL_USER=appiary_db_user"
+Environment="APPIARY_MYSQL_PWD=appiary_db_user_pwd"
+Environment="APPIARY_MYSQL_HOST=localhost"
+Environment="APPIARY_MYSQL_DB=appiary_db"
+Environment="APPIARY_ENV=te"
+Environment="APPIARY_TYPE_STORAGE=db"
+# ExecStart=/home/ubuntu/Appiary/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:5050 app:app
+ExecStart=/bin/bash -c 'source /home/ubuntu/Appiary/venv/bin/activate && export PYTHONPATH=/home/ubuntu/Appiary && /home/ubuntu/Appiary/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:5050 app:app'
+
+[Install]
+WantedBy=multi-user.target
