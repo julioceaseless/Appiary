@@ -12,6 +12,9 @@ app = Flask(__name__)
 # register blueprints
 app.register_blueprint(views)
 
+# set secret key for session
+app.secret_key = "appiary"
+
 @app.teardown_appcontext
 def close_db(error):
     """close the current SQLAlchemy Session """
