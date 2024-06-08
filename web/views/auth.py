@@ -18,7 +18,7 @@ def sign_up():
         yob = request.form.get('yob')
 
         if not first_name or not last_name or not email or not yob:
-        flash("All fields are required!")
+            flash("All fields are required!")
             return redirect(url_for('views.sign_up'))
 
         try:
