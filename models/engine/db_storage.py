@@ -105,6 +105,12 @@ class DBStorage:
         # Session = scoped_session(session)
         self.__session = scoped_session(session)
 
+    def query(self, cls):
+        """
+        Query all objects of a given class
+        """
+        return self.__session().query(cls)
+
     def close(self):
         """
         Close scoped session
