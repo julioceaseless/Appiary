@@ -63,20 +63,20 @@ def login():
     if request.method == "POST":
         email = request.form.get('email')
 
-        if not email:
+        if email is None:
             flash("Email is required!")
             return redirect(url_for('views.login'))
 
         # get all users
         users = storage.all('User')
 
-        for user in users:
+        # find if user account exists and create session
+        for user in users.values():
             if user.email == email:
                 session['user_id'] = user.id
                 return redirect(url_for('views.show_profile'))
-            else:
-                flash("Invalid email or user does not exist")
-                return redirect(url_for('views.login'))
+        flash("Invalid email or user does not exist")
+        return redirect(url_for('views.login'))
 
     return render_template("login.html")
 
