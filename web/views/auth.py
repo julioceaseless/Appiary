@@ -67,16 +67,14 @@ def login():
             flash("Email is required!")
             return redirect(url_for('views.login'))
 
-        # get all users
-        users = storage.all('User')
+        # Optimized search for the user by email
+        user = storage.query(User).filter_by(email=email).first()
+        if user:
+            session['user_id'] = user.id
+            return redirect(url_for('views.show_profile'))
 
-        for user in users:
-            if user.email == email:
-                session['user_id'] = user.id
-                return redirect(url_for('views.show_profile'))
-            else:
-                flash("Invalid email or user does not exist")
-                return redirect(url_for('views.login'))
+        flash("Invalid email or user does not exist")
+        return redirect(url_for('views.login'))
 
     return render_template("login.html")
 
