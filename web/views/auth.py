@@ -23,7 +23,7 @@ def sign_up():
             }
         user = User(**data)
         user.save()
-        return redirect(url_for('views.profile', user_data=user.view_profile()))
+        return redirect(url_for('views.show_profile', user_data=user.view_profile()))
     return render_template("sign-up.html")
 
 
