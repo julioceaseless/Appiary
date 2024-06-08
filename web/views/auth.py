@@ -6,6 +6,7 @@ from models.user import User
 from web.views import views
 from os import environ
 from flask import render_template, url_for, request, redirect
+from flask import session
 
 
 @views.route("/sign-up", methods=['GET', 'POST'])
@@ -16,18 +17,68 @@ def sign_up():
         email = request.form.get('email')
         yob = request.form.get('yob')
 
+        if not first_name or not last_name or not email or not yob:
+        flash("All fields are required!")
+            return redirect(url_for('views.sign_up'))
+
+        try:
+            yob = int(yob)
+        except ValueError:
+            flash("Year of birth must be an integer!")
+            return redirect(url_for('views.sign_up'))
+
         data = {'first_name': first_name,
             'last_name': last_name,
             'email': email,
             'yob': yob
             }
+
         user = User(**data)
         user.save()
-        return redirect(url_for('views.show_profile', user_data=user.view_profile()))
+
+        session['user_id'] = user.id
+        return redirect(url_for('views.show_profile'))
+
     return render_template("sign-up.html")
 
 
 @views.route("/profile")
-def show_profile(user_data):
-    return user_data
+def show_profile():
+    """Show profile"""
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('views.sign_up'))
 
+    user = storage.get(User, user_id)
+    if not user:
+        return redirect(url_for('views.sign_up'))
+
+    user_data = user.view_profile()
+    return render_template("profile.html", user_data=user_data)
+
+
+@views.route("/login", methods=['GET', 'POST'])
+def login():
+    """Login user"""
+    if request.method == "POST":
+        email = request.form.get('email')
+
+        if not email:
+            flash("Email is required!")
+            return redirect(url_for('views.login'))
+
+        user = storage.query(User).filter_by(email=email).first()
+        if user:
+            session['user_id'] = user.id
+            return redirect(url_for('views.show_profile'))
+        else:
+            flash("Invalid email or user does not exist")
+            return redirect(url_for('views.login'))
+
+    return render_template("login.html")
+
+
+@views.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('views.login'))
