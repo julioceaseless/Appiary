@@ -3,7 +3,7 @@
 from models import storage
 from web.views import views
 from os import environ
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask
 
 
 # start flask
