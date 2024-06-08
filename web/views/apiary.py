@@ -37,10 +37,10 @@ def view_apiary(apiary_id):
 def add_apiary():
     """Add new apiary"""
     if request.method == 'POST':
-        user_id = request.form['user']
-        name = request.form['name']
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
+        user_id = request.form.get('user')
+        name = request.form.get('name')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
         data = {'user_id': user_id,
                 'name': name,
                 'latitude': latitude,
