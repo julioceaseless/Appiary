@@ -63,7 +63,7 @@ def login():
     if request.method == "POST":
         email = request.form.get('email')
 
-        if email is None:
+        if not email:
             flash("Email is required!")
             return redirect(url_for('views.login'))
 
