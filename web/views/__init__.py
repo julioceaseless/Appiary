@@ -9,3 +9,4 @@ views = Blueprint('views', __name__, url_prefix='/')
 from web.views.index import *
 from web.views.apiary import *
 from web.views.beehive import *
+from web.views.auth import *
