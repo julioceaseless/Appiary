@@ -32,14 +32,6 @@ class User(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    @property
-    def age(self):
-        """create age property from yob and current year"""
-        current_year = datetime.now().year
-        if self.yob > 0 and (current_year - self.yob) > 1:
-            return current_year - self.yob
-        else:
-            return 0
 
     def view_profile(self):
         """show user information"""
@@ -53,7 +45,7 @@ class User(BaseModel, Base):
                     user_info["Joined"] = f'{value.strftime("%B")}, {value.year}'
                 else:
                     user_info[attr] = value
-            user_info['age'] = self.age
+            user_info['age'] = datetime.now().year - self.yob
         else:
             for key, value in self.__dict__.items():
                 if key not in ['id', 'updated_at', '__class__']:
