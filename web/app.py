@@ -18,12 +18,14 @@ def close_db(error):
     storage.close()
 
 
+API_URL = environ.get('API_URL')
+
 @app.route('/')
 def index():
     """Home page"""
     # show stats in dashboard
     try:
-        response = requests.get("http://127.0.0.1:5000/api/v1/stats")
+        response = requests.get(API_URL)
         data = response.json()
         hives = data.get('beehives')
         apiaries = data.get('apiaries')
