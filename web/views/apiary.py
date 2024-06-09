@@ -5,6 +5,7 @@ from models import storage
 from web.views import views
 from os import environ
 from flask import render_template, request, redirect, url_for
+from flask import session
 from models.apiary import Apiary
 
 
@@ -13,8 +14,9 @@ def list_apiaries():
     """List apiaries"""
     apiary_list = []
     apiaries = storage.all('Apiary')
-    for apiary_obj in apiaries.values():
-        apiary_list.append(f'{apiary_obj.name} - {apiary_obj.id}')
+    for apiary in apiaries.values():
+        if apiary.user_id == session.get('user_id'):
+            apiary_list.append(f'{apiary.name} - {apiary.id}')
     apiary_list.sort()
     return render_template('list_apiaries.html', apiaries=apiary_list)
 
