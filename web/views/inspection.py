@@ -48,8 +48,7 @@ def add_inspection():
         return redirect(url_for('views.list_inspections'))
 
     hives = storage.query(Beehive).join(Apiary).filter(Apiary.user_id == user_id).all()
-    hive_list = [hive.id for hive in hives]
-    return render_template('add_inspection.html', hives=hive_list)
+    return render_template('add_inspection.html', hives=hives)
 
 @views.route('/inspection/delete/<inspection_id>', methods=['GET'])
 def delete_inspection(inspection_id):
