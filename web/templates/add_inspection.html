@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Add Inspection{% endblock %}
+
+{% block content %}
+    <h1>Add New Inspection</h1>
+    <form action="{{ url_for('views.add_inspection') }}" method="post">
+	<label for="hive">Select Beehive</label>
+	<select id="hive" name="hive" required>
+		{% for hive in hives %}
+		<option value="{{ hive.id }}">{{ hive.id }}</option>
+		{% endfor %}
+	</select>
+        <label for="notes">Observations</label>
+        <input type="text" id="notes" name="notes" required>
+	<label for="status">Ready for Harvest?</label>
+        <input type="text" id="status" name="status" required>
+        <button type="submit">Add Inspection</button>
+    </form>
+{% endblock %}
