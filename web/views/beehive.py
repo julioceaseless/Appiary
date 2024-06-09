@@ -51,7 +51,7 @@ def add_beehive(user_id):
 
 @views.route('/beehive/delete/<beehive_id>', methods=['GET'])
 @login_required
-def delete_beehive(beehive_id):
+def delete_beehive(user_id, beehive_id):
     """Delete apiary"""
     beehive = storage.get('Beehive', beehive_id)
     storage.delete(beehive)
