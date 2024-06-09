@@ -11,9 +11,16 @@
       <nav>
         <ul>
           <li><a href="{{ url_for('views.index') }}">Home</a></li>
-          <li><a href="{{ url_for('views.list_apiaries') }}">Apiaries</a></li>
-	  <li><a href="{{ url_for('views.list_beehives') }}">Beehives</a></li>
+	  {% if session.get('user_id') %}
+
+          <li><a href="{{ url_for('views.list_apiaries') }}">My Apiaries</a></li>
+	  <li><a href="{{ url_for('views.list_beehives') }}">My Beehives</a></li>
 	  <li><a href="{{ url_for('views.list_inspections') }}">Inspections</a></li>
+	  <li><a href="{{ url_for('views.logout') }}">Logout</a></li>
+	  {% else %}
+	  <li><a href="{{ url_for('views.login') }}">Login</a></li>
+	  <li><a href="{{ url_for('views.sign-up') }}">Sign Up</a></li>
+	  {% endif %}
         </ul>
       </nav>
       <div class="header_img"></div>
