@@ -43,12 +43,9 @@ def sign_up():
 
 
 @views.route("/profile")
-def show_profile():
+@login_required
+def show_profile(user_id):
     """Show profile"""
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect(url_for('views.sign_up'))
-
     user = storage.get(User, user_id)
     if not user:
         return redirect(url_for('views.sign_up'))
@@ -80,6 +77,7 @@ def login():
 
 
 @views.route("/logout")
-def logout():
+@login_required
+def logout(user_id):
     session.pop('user_id', None)
     return redirect(url_for('views.login'))
