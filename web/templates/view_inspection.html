@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Inspection Details{% endblock %}
+
+{% block content %}
+    <p><strong>ID:</strong> {{ inspection.id }}</p>
+    <p><strong>Created on:</strong> {{ inspection.created_at }}</p>
+    <p><strong>Last updated:</strong> {{ inspection.updated_at }}</p>
+    <p><strong>Harvest Status:</strong> {{ inspection.ready_for_harvest }}</p>
+    <p><strong>Beehive ID:</strong> {{ inspection.hive_id }}</p>
+    
+    <div class="button">
+      <a href="{{ url_for('views.delete_inspection', inspection_id=inspection.id) }}" onclick="return confirm('Are you sure you want to delete this beehive?');">Delete Inspection</a>
+    </div>
+{% endblock %}
