@@ -7,7 +7,7 @@ from flask import render_template, request, redirect, url_for
 from flask import session
 from models.inspection import Inspection
 from models.beehive import Beehive
-from models.Apiary import Apiary
+from models.apiary import Apiary
 
 
 @views.route('/inspections')
@@ -22,7 +22,8 @@ def list_inspections():
     inspection_list = [inspection.id for inspection in inspections]
     inspection_list.sort()
 
-    return render_template('list_inspections.html', inspections=inspection_list)
+    return render_template('list_inspections.html', inspections=inspection_list,
+                                                    size=len(inspection_list))
 
 @views.route('/inspection/<inspection_id>')
 def view_inspection(inspection):
