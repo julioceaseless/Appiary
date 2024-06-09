@@ -40,6 +40,7 @@ def add_inspection(user_id):
         hive_id= request.form.get('hive_id')
         notes = request.form.get('notes')
         status = request.form.get('status')
+        status = status.lower() == 'true'
 
         data = {'hive_id': hive_id,
                 'observations': notes,
@@ -47,6 +48,9 @@ def add_inspection(user_id):
                 }
         inspection = Inspection(**data)
         inspection.save()
+        if status:
+            inspection.set_harvest_ready()
+            storage.save()
         return redirect(url_for('views.list_inspections'))
 
     hives = storage.query(Beehive).join(Apiary).filter(Apiary.user_id == user_id).all()
