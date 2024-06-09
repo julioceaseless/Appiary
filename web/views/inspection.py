@@ -48,6 +48,9 @@ def add_inspection(user_id):
                 }
         inspection = Inspection(**data)
         inspection.save()
+        if status:
+            inspection.set_harvest_ready()
+            storage.save()
         return redirect(url_for('views.list_inspections'))
 
     hives = storage.query(Beehive).join(Apiary).filter(Apiary.user_id == user_id).all()
