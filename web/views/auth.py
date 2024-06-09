@@ -6,7 +6,7 @@ from models.user import User
 from web.views import views
 from os import environ
 from flask import render_template, url_for, request, redirect
-from flask import session
+from flask import session, flash
 
 
 @views.route("/sign-up", methods=['GET', 'POST'])

@@ -3,7 +3,7 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<h1>Welcome to Your Profile</h1>
+<h1>Howdy {{ user_data.first_name }}</h1>
   <main>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -15,14 +15,18 @@
       {% endif %}
     {% endwith %}
     <section>
-      <h2>Profile Information</h2>
-      <ul>
-        <li><strong>First Name:</strong> {{ user_data['first_name'] }}</li>
-        <li><strong>Last Name:</strong> {{ user_data['last_name'] }}</li>
-        <li><strong>Email:</strong> {{ user_data['email'] }}</li>
-        <li><strong>Age:</strong> {{ user_data['age'] }}</li>
-        <li><strong>Joined:</strong> {{ user_data['Joined'] }}</li>
-      </ul>
+      <h2>Profile Info</h2>
+      <div>
+        <p><strong>First Name:</strong> {{ user_data.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user_data.last_name }}</p>
+        <p><strong>Email:</strong> {{ user_data.email }}</p>
+        <p><strong>Year of Birth:</strong> {{ user_data.yob }}</p>
+        <p><strong>Joined:</strong> {{ user_data.Joined }}</p>
+	<div>
+	  <h3>About</h3>
+	  <p>{{ user_data.about }}</p>
+	</div>
+      </div>
     </section>
     <section>
       <a href="{{ url_for('views.logout') }}">Logout</a>
