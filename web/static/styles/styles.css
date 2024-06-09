@@ -51,6 +51,11 @@ form input, form button {
   margin: 0 auto;
 }
 
+/*****************     Inspection    *********************/
+textarea {
+    height: 200px;
+}
+
 /*****************     Dashboard     *********************/
 .table {
     display: table;
