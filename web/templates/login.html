@@ -6,9 +6,10 @@
 <main>
   <form method="post" action="{{ url_for('views.login') }}">
     <div>
-      <label for="email">Email:</label>
+      <label for="email">Email:</label><br>
       <input type="email" id="email" name="email" required>
     </div>
+    <br>
     <button type="submit">Login</button>
   </form>
   <p>Don't have an account? <a href="{{ url_for('views.sign_up') }}">Sign Up</a></p>
