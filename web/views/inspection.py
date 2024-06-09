@@ -40,6 +40,7 @@ def add_inspection(user_id):
         hive_id= request.form.get('hive_id')
         notes = request.form.get('notes')
         status = request.form.get('status')
+        status = status.lower() == 'true'
 
         data = {'hive_id': hive_id,
                 'observations': notes,
