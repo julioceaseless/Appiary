@@ -39,15 +39,15 @@ form input, form button {
     margin-top: 5px;
 }
 
-.header_img {
+.logo {
     display: block;
     margin-left: 30%;
     background-image: url("../images/apiary.jpg");
-    width: 200px;
-    height: 200px;
+    width: 50px;
+    height: 50px;
 }
 
-.header_img img {
+.logo img {
   margin: 0 auto;
 }
 
