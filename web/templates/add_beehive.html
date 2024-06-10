@@ -7,7 +7,7 @@
     <form action="{{ url_for('views.add_beehive') }}" method="post">
 	<label for="apiary">Select Apiary:</label>
 	<select id="apiary" name="apiary" required>
-		{% for apiary in apiaries.values() %}
+		{% for apiary in apiaries %}
 		<option value="{{ apiary.id }}">{{ apiary.id }} - {{ apiary.name }}</option>
 		{% endfor %}
 	</select>
