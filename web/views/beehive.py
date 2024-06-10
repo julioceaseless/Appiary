@@ -7,6 +7,7 @@ from flask import render_template, request, redirect, url_for
 from flask import session
 from decorators import login_required
 from models.beehive import Beehive
+from models.apiary import Apiary
 
 
 @views.route('/beehives')
