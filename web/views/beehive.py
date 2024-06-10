@@ -45,7 +45,9 @@ def add_beehive(user_id):
         beehive.save()
         return redirect(url_for('views.list_beehives'))
 
-    apiaries = storage.all('Apiary')
+    # Query the database for Apiaries that belong to the logged-in user
+    apiaries = storage.query(Apiary).filter(Apiary.user_id == user_id)
+
     return render_template('add_beehive.html', apiaries=apiaries)
 
 
