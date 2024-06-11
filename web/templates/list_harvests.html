@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Harvests{% endblock %}
+
+{% block content %}
+    <h1>Harvests</h1>
+    {% if size > 0 %}
+      <ol>
+	{% for harvest in harvests %}
+	  <li><a href="harvest/{{ harvest }}">{{ harvest }}</a></li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p>You have not performed any harvests yet.</p>
+    {% endif %}
+    <div class="button">
+      <a href="{{ url_for('views.add_harvest') }}">Add Harvest</a>
+    </div>
+{% endblock %}

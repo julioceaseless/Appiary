@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Harvest Details{% endblock %}
+
+{% block content %}
+    <p><strong>ID:</strong> {{ harvest.id }}</p>
+    <p><strong>Created on:</strong> {{ harvest.created_at }}</p>
+    <p><strong>Last updated:</strong> {{ harvest.updated_at }}</p>
+    <p><strong>Quantity:</strong> {{ harvest.quantity }} ltrs</p>
+    <p><strong>Notes:</strong> {{ harvest.notes }}</p>
+    <p><strong>Beehive:</strong> {{ harvest.hive_id }}-{{ harvest.beehive.apiary.name }}</p>
+    
+    <div class="button">
+      <a href="{{ url_for('views.delete_harvest', harvest_id=harvest.id) }}" onclick="return confirm('Are you sure you want to delete this harvest?');">Delete Harvest</a>
+    </div>
+{% endblock %}
