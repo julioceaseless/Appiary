@@ -11,3 +11,4 @@ from web.views.apiary import *
 from web.views.beehive import *
 from web.views.auth import *
 from web.views.inspection import *
+from web.views.harvest import *
