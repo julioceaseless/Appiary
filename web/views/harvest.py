@@ -49,6 +49,8 @@ def add_harvest(user_id):
 
         # schedule the next tentative harvest date
         harvest.set_next_harvest()
+        # update changes
+        storage.save()
 
         return redirect(url_for('views.list_harvests'))
     
