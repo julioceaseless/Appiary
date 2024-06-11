@@ -52,13 +52,21 @@ def add_harvest(user_id):
 
         return redirect(url_for('views.list_harvests'))
     
-    ready_hives = (
+    ready_hives = []
+
+    #retrieve all hives for user
+    hives = (
             storage.query(Beehive)
-            .filter(Beehive.ready_for_harvest)
             .join(Apiary)
             .filter(Apiary.user_id == user_id)
             .all()
             )
+    
+    # filter ready hives
+    for hive in hives:
+        if hive.ready_for_harvest:
+            ready_hives.append(hive)
+
     return render_template('add_harvest.html', hives=ready_hives)
 
 @views.route('/harvest/delete/<harvest_id>', methods=['GET'])
