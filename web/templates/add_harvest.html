@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Add Harvest{% endblock %}
+
+{% block content %}
+    <h1>Add New Harvest Event</h1>
+    <form action="{{ url_for('views.add_harvest') }}" method="post">
+	<label for="hive">Select Beehive:</label>
+	<select id="hive" name="hive" required>
+		{% for hive in hives %}
+		<option value="{{ hive.id }}">{{ hive.id }} - {{ hive.apiary.name }}</option>
+		{% endfor %}
+	</select>
+	<label for="quantity">Quantity in Liters</label>
+	<input type="text" id="quantity" name="quantity" required><br>
+	<label for="notes">Notes</label>
+	<input type="text" id="notes" name="notes" required><br>
+        <button type="submit">Add Harvest</button>
+    </form>
+{% endblock %}
