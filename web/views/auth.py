@@ -7,8 +7,15 @@ from web.views import views
 from os import environ
 from flask import render_template, url_for, request, redirect
 from flask import session, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 from decorators import login_required
 
+
+def validate_form(*args):
+    """Validates form fields"""
+    if any(not arg for arg in args):
+        return False
+    return True
 
 @views.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
@@ -25,39 +32,44 @@ def sign_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
-        # check empty fields
-        if (not first_name or
-                not last_name or
-                not email or
-                not yob or
-                not password1 or
-                not password2):
+        # Validate the form data
+        if not validate_form(first_name, last_name, email, yob,
+                             password1, password2):
             flash("All fields are required!", category="error")
+            return redirect(url_for('views.sign_up'))
+
+        # Addition validation for password
+        if password1 != password2:
+            flash("Passwords do not match!", category="error")
+            return redirect(url_for('views.sign_up'))
+
+        if len(password1) < 5:
+            flash("Password too short!", category="error")
             return redirect(url_for('views.sign_up'))
 
         # check if email exists
         email_exists = storage.query(User).filter_by(email=email).first()
 
-        # catch errors
+        # if email exists, show login page
         if email_exists:
             flash("Email is already in use", category="error")
-        elif password1 != password2:
-            flash("Passwords don\'t match!", category="error")
-        elif len(password) < 5:
-            flash("Password too short!", category="error")
+            return redirect(url_for('views.login'))
 
         # calculate age
         try:
             yob = int(yob)
         except ValueError:
-            flash("Year of birth must be an integer!")
+            flash("Year of birth must be an integer!", category="error")
             return redirect(url_for('views.sign_up'))
+
+        # hash password
+        hashed_password = generate_password_hash(password1, method='sha256')
 
         data = {'first_name': first_name,
             'last_name': last_name,
             'email': email,
-            'yob': yob
-            'password': password1
+            'yob': yob,
+            'password': hashed_password
             }
         
         # create new user
@@ -91,7 +103,8 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        if not email or not password:
+        # check for empty field
+        if validate_form(email, password):
             flash("Password or Email is missing!")
             return redirect(url_for('views.login'))
 
@@ -99,7 +112,7 @@ def login():
         user = storage.query(User).filter_by(email=email).first()
         if user:
             # check if password is correct
-            if user.password == password:
+            if check_password_hash(user.password, password):
                 # set session id
                 session['user_id'] = user.id
                 # show login success notification
