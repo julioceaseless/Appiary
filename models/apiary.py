@@ -12,7 +12,9 @@ class Apiary(BaseModel, Base):
     """define an apiary"""
     if models.storage_type == 'db':
         __tablename__ = 'apiaries'
-        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+        user_id = Column(String(60),
+                         ForeignKey('users.id', ondelete='CASCADE'),
+                         nullable=False)
         name = Column(String(60), nullable=False)
         longitude = Column(Float, nullable=True)
         latitude = Column(Float, nullable=True)

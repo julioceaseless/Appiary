@@ -17,7 +17,9 @@ class Harvest(BaseModel, Base):
         # use database storage
         __tablename__ = 'harvests'
 
-        hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
+        hive_id = Column(String(60),
+                         ForeignKey('beehives.id', ondelete='CASCADE'),
+                         nullable=False)
         quantity = Column(Float, default=0.00)
         notes = Column(String(1024), nullable=True)
     else:
