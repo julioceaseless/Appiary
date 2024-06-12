@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Authentication endpoints"""
-
+"""User authentication endpoints"""
 from models import storage
 from models.user import User
 from web.views import views
@@ -63,7 +62,8 @@ def sign_up():
             return redirect(url_for('views.sign_up'))
 
         # hash password
-        hashed_password = generate_password_hash(password1, method='sha256')
+        hashed_password = generate_password_hash(password1,
+                                                 method='pbkdf2:sha256')
 
         data = {'first_name': first_name,
             'last_name': last_name,
