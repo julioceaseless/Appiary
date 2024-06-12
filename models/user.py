@@ -17,8 +17,9 @@ class User(BaseModel, Base):
         __tablename__ = 'users'
         first_name = Column(String(128), nullable=False)
         last_name = Column(String(128), nullable=False)
-        email = Column(String(128), nullable=False)
+        email = Column(String(128), nullable=False, unique=True)
         yob = Column(Integer, nullable=False)
+        password = Column(String(150), nullable=False)
 
         # Establish relationship with Apiary
         apiaries = relationship('Apiary', backref='user',
@@ -28,6 +29,7 @@ class User(BaseModel, Base):
         last_name = ""
         email = ""
         yob = ""
+        password = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
