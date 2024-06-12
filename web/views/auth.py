@@ -63,7 +63,8 @@ def sign_up():
 
         # hash password
         hashed_password = generate_password_hash(password1,
-                                                 method='pbkdf2:sha256')
+                                                method='pbkdf2:sha256',
+                                                salt_length=8)
 
         data = {'first_name': first_name,
             'last_name': last_name,
@@ -104,12 +105,13 @@ def login():
         password = request.form.get('password')
 
         # check for empty field
-        if validate_form(email, password):
+        if not validate_form(email, password):
             flash("Password or Email is missing!")
             return redirect(url_for('views.login'))
 
         # Optimized search for the user by email
         user = storage.query(User).filter_by(email=email).first()
+        print(user)
         if user:
             # check if password is correct
             if check_password_hash(user.password, password):
@@ -121,12 +123,13 @@ def login():
                 return redirect(url_for('views.show_profile'))
             else:
                 flash("Password incorrect!", category="error")
+                print("Password incorect")
                 return redirect(url_for('views.login'))
-        
-        flash("Invalid email or user does not exist", category="error")
-        return redirect(url_for('views.login'))
-
-    return render_template("login.html")
+        else:
+            flash("Invalid email or user does not exist", category="error")
+            return redirect(url_for('views.login'))
+    else:
+        return render_template("login.html")
 
 
 @views.route("/logout")
