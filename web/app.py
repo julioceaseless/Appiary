@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.register_blueprint(views)
 
 # set secret key for session
-app.secret_key = "appiary"
+app.secret_key = environ.get('SECRET_KEY')
 
 @app.teardown_appcontext
 def close_db(error):
@@ -26,8 +26,9 @@ if __name__ == '__main__':
 
     HOST = environ.get('APPIARY_API_HOST')
     PORT = environ.get('APPIARY_API_PORT')
+    DEBUG = environ.get('DEBUG_STATUS')
     if not HOST:
         HOST = '0.0.0.0'
     if not PORT:
         PORT = '5555'
-    app.run(host=HOST, port=PORT, debug=True)
+    app.run(host=HOST, port=PORT, debug=DEBUG)
