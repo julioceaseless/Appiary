@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS appiary_db;
 CREATE DATABASE IF NOT EXISTS appiary_db;
 
 CREATE USER IF NOT EXISTS 'appiary_db_user'@'localhost';
