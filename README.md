@@ -125,7 +125,7 @@ Access API at: http://127.0.0.1:5000
 ```
 python3 -m web.app
 ```
-Access Web APp at: http://127.0.0.1:5050
+Access Web App at: http://127.0.0.1:5050
 
 ### Future Enhancements
 - Implement role-based access control.
