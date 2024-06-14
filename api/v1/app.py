@@ -2,7 +2,7 @@
 """ Flask Application """
 from models import storage
 from api.v1.views import app_views
-from app.v1.auth import api_auth
+from api.v1.auth import api_auth
 from flask import Flask, render_template, make_response, jsonify
 from flasgger import Swagger
 import os
@@ -44,12 +44,12 @@ def not_found(error):
 
 if __name__ == "__main__":
     """ Main Function """
-    HOST = environ.get('APPIARY_API_HOST')
-    PORT = environ.get('APPIARY_API_PORT')
-    DEBUG = environ.get('DEBUG')
+    HOST = os.environ.get('APPIARY_API_HOST')
+    PORT = os.environ.get('APPIARY_API_PORT')
+    DEBUG = os.environ.get('DEBUG')
 
-    if not host:
-        host = '0.0.0.0'
-    if not port:
-        port = '5000'
-    app.run(host=PORT, port=PORT, threaded=True, debug=DEBUG)
+    if not HOST:
+        HOST = '0.0.0.0'
+    if not PORT:
+        PORT = '5000'
+    app.run(host=HOST, port=PORT, threaded=True, debug=DEBUG)
