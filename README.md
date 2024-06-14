@@ -75,7 +75,9 @@ source venv/bin/activate
 ```
 
 #### Step 2: Install the dependencies inside the requirements.txt
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 #### Step 3: Set environment variables
 Set these environment variables for API
@@ -113,12 +115,16 @@ cat appiary_db_setup.sql | sudo mysql -uroot -p
 
 #### 2. Run the flask application
 ##### API
-`python3 -m api.v1.app`
+```
+python3 -m api.v1.app
+```
 
 Access API at: http://127.0.0.1:5000
 
 ##### Web
-`python3 -m web.app
+```
+python3 -m web.app
+```
 Access Web APp at: http://127.0.0.1:5050
 
 ### Future Enhancements
