@@ -47,4 +47,4 @@ def login():
         else:
             abort(401, description="Password incorrect!"))
     else:
-        abort(404, description="User not found!")
+        abort(401, description="User not found!")

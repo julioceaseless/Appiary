@@ -3,14 +3,13 @@
 from models import storage
 from api.v1.views import app_views
 from app.v1.auth import api_auth
-from os import environ
 from flask import Flask, render_template, make_response, jsonify
 from flasgger import Swagger
 import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Determine the absolute path to swagger.yaml
 swagger_yaml_path = os.path.join(os.path.dirname(__file__), '../../docs/swagger.yaml')
@@ -47,10 +46,10 @@ if __name__ == "__main__":
     """ Main Function """
     HOST = environ.get('APPIARY_API_HOST')
     PORT = environ.get('APPIARY_API_PORT')
-    DEBUG = environ.get('DEBUG_FLAG')
+    DEBUG = environ.get('DEBUG')
 
     if not host:
         host = '0.0.0.0'
     if not port:
         port = '5000'
-    app.run(host=host, port=port, threaded=True, debug=DEBUG_FLAG)
+    app.run(host=PORT, port=PORT, threaded=True, debug=DEBUG)
