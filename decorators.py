@@ -31,13 +31,13 @@ def token_required(f):
     """
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization').split()[1]
+        token = request.headers.get('Authorization')
         secret_key = request.headers.get('Key')
 
         if not token:
             return jsonify({'message': 'Token is missing!'}), 403
         try:
-            data = jwt.decode(token, secret_key, algorithms=["HS256"])
+            data = jwt.decode(token.split()[1], secret_key, algorithms=["HS256"])
             current_user = storage.query(User).filter_by(email=data['user']).first()
         except Exception as e:
             return jsonify({
