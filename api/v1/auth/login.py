@@ -8,6 +8,7 @@ from models.user import User
 from api.v1.auth import api_auth
 from werkzeug.security import check_password_hash
 from flask import jsonify, make_response, abort, request
+from decorators import token_required
 import datetime
 import jwt
 
