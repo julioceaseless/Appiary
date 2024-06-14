@@ -3,6 +3,7 @@
 from models.apiary import Apiary
 from models import storage
 from api.v1.views import app_views
+from decorators import token_required
 from flask import abort, jsonify, make_response, request
 
 
@@ -32,7 +33,7 @@ def get_apiary(apiary_id):
 @app_views.route('/apiaries/<apiary_id>', methods=['DELETE'],
                  strict_slashes=False)
 @token_required
-def delete_apiary(apiary_id):
+def delete_apiary(current_user, apiary_id):
     """
     Deletes a apiary Object
     """
@@ -50,7 +51,7 @@ def delete_apiary(apiary_id):
 
 @app_views.route('/apiaries', methods=['POST'], strict_slashes=False)
 @token_required
-def post_apiary():
+def post_apiary(current_user):
     """
     Creates a apiary
     """
@@ -70,7 +71,7 @@ def post_apiary():
 
 @app_views.route('/apiaries/<apiary_id>', methods=['PUT'], strict_slashes=False)
 @token_required
-def put_apiary(apiary_id):
+def put_apiary(current_user, apiary_id):
     """
     Updates a apiary
     """

@@ -3,19 +3,22 @@
 from models.user import User
 from models import storage
 from api.v1.views import app_views
+from decorators import token_required
 from flask import abort, jsonify, make_response, request
 from decorators import token_required
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-def get_users(current_user):
+def get_users():
     """
     Retrieves the list of all user objects
     """
     all_users = storage.all('User').values()
     list_users = []
     for user in all_users:
-        list_users.append(user.to_dict().pop('password'))
+        new_user = user.to_dict()
+        new_user.pop('password')
+        list_users.append(new_user)
     return jsonify(list_users)
 
 
@@ -27,14 +30,15 @@ def get_user(user_id):
     user = storage.get('User', user_id)
     if not user:
         abort(404)
-
-    return jsonify(user.to_dict().pop('password'))
+    user_details = user.to_dict()
+    user_details.pop('password')
+    return jsonify(user_details)
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'],
                  strict_slashes=False)
 @token_required
-def delete_user(user_id):
+def delete_user(current_user, user_id):
     """
     Deletes a user Object
     """
@@ -52,7 +56,7 @@ def delete_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 @token_required
-def post_user():
+def post_user(current_user):
     """
     Creates a user
     """
@@ -72,7 +76,7 @@ def post_user():
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 @token_required
-def put_user(user_id):
+def put_user(current_user, user_id):
     """
     Updates a user
     """

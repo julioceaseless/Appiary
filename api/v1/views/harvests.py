@@ -3,6 +3,7 @@
 from models.harvest import Harvest
 from models import storage
 from api.v1.views import app_views
+from decorators import token_required
 from flask import abort, jsonify, make_response, request
 
 
@@ -32,7 +33,7 @@ def get_harvest(harvest_id):
 @app_views.route('/harvests/<harvest_id>', methods=['DELETE'],
                  strict_slashes=False)
 @token_required
-def delete_harvest(harvest_id):
+def delete_harvest(current_user, harvest_id):
     """
     Deletes a harvest Object
     """
@@ -50,7 +51,7 @@ def delete_harvest(harvest_id):
 
 @app_views.route('/harvests', methods=['POST'], strict_slashes=False)
 @token_required
-def post_harvest():
+def post_harvest(current_user):
     """
     Creates a harvest
     """
@@ -73,7 +74,7 @@ def post_harvest():
 
 @app_views.route('/harvests/<harvest_id>', methods=['PUT'], strict_slashes=False)
 @token_required
-def put_harvest(harvest_id):
+def put_harvest(current_user, harvest_id):
     """
     Updates a harvest
     """

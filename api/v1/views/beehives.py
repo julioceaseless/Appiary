@@ -3,6 +3,7 @@
 from models.beehive import Beehive
 from models import storage
 from api.v1.views import app_views
+from decorators import token_required
 from flask import abort, jsonify, make_response, request
 
 
@@ -32,7 +33,7 @@ def get_beehive(beehive_id):
 @app_views.route('/beehives/<beehive_id>', methods=['DELETE'],
                  strict_slashes=False)
 @token_required
-def delete_beehive(beehive_id):
+def delete_beehive(current_user, beehive_id):
     """
     Deletes a beehive Object
     """
@@ -50,7 +51,7 @@ def delete_beehive(beehive_id):
 
 @app_views.route('/beehives', methods=['POST'], strict_slashes=False)
 @token_required
-def post_beehive():
+def post_beehive(current_user):
     """
     Creates a new beehive
     """
@@ -72,7 +73,7 @@ def post_beehive():
 
 @app_views.route('/beehives/<beehive_id>', methods=['PUT'], strict_slashes=False)
 @token_required
-def put_beehive(beehive_id):
+def put_beehive(current_user, beehive_id):
     """
     Updates a beehive
     """
