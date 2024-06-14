@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Inspections{% endblock %}
+
+{% block content %}
+    <h1>Inspections</h1>
+    {% if size > 0 %}
+      <ol>
+	{% for inspection in inspections %}
+	  <li><a href="inspection/{{ inspection }}">{{ inspection }}</a></li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p>You have not performed any inspection yet!</p>
+    {% endif %}
+    <div class="button">
+      <a href="{{ url_for('views.add_inspection') }}">Add Inspection</a>
+    </div>
+{% endblock %}

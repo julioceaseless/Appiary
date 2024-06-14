@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Beehive Details{% endblock %}
+
+{% block content %}
+    <p><strong>ID:</strong> {{ beehive.id }}</p>
+    <p><strong>Created on:</strong> {{ beehive.created_at }}</p>
+    <p><strong>Last updated:</strong> {{ beehive.updated_at }}</p>
+    <p><strong>Type:</strong> {{ beehive.hive_type }}</p>
+    <p><strong>Made from:</strong> {{ beehive.wood_type }}</p>
+    <p><strong>Ready for Harvest:</strong> {{ beehive.ready_for_harvest }}</p>
+    <p><strong>Next Harvest Date:</strong> {{ beehive.next_harvest_date }}</p>
+    <p><strong>Number of Harvests:</strong> {{ beehive.harvest_count }}</p>
+    <p><strong>Apiary:</strong> {{ beehive.apiary_id }}-{{ beehive.apiary.name }}</p>
+    
+    <div class="button">
+      <a href="{{ url_for('views.delete_beehive', beehive_id=beehive.id) }}" onclick="return confirm('Are you sure you want to delete this beehive?');">Delete Beehive</a>
+    </div>
+{% endblock %}

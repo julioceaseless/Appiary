@@ -1,0 +1,622 @@
+swagger: "2.0"
+info:
+  description: "This is the API documentation for the AppIARY project."
+  version: "1.0.0"
+  title: "AppIARY API Documentation"
+host: "127.0.0.1:5000"
+basePath: "/api/v1"
+tags:
+  - name: Users
+    description: "CRUD operations related to users"
+  - name: Apiaries
+    description: "CRUD operations related to apiaries"
+  - name: Beehives
+    description: "CRUD operations related to beehives"
+  - name: Inspections
+    description: "CRUD operations related to inspections"
+  - name: Harvests
+    description: "CRUD operations related to harvests"
+schemes:
+  - http
+paths:
+  ########################## USER ENDPOINTS ##########################
+  /users:
+    get:
+      tags:
+        - Users
+      summary: "Retrieves the list of all user objects"
+      responses:
+        200:
+          description: "A list of user objects"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+    post:
+      tags:
+        - Users
+      summary: "Creates a new user"
+      parameters:
+        - in: body
+          name: body
+          description: "User object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        201:
+          description: "User created"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid input"
+  /users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: "Retrieves a user"
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the user to retrieve"
+      responses:
+        200:
+          description: "A user object"
+          schema:
+            $ref: "#/definitions/User"
+        404:
+          description: "User not found"
+    delete:
+      tags:
+        - Users
+      summary: "Deletes a user"
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the user to delete"
+      responses:
+        200:
+          description: "User deleted"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Deletion message"
+        404:
+          description: "User not found"
+    put:
+      tags:
+        - Users
+      summary: "Updates a user"
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the user to update"
+        - in: body
+          name: body
+          description: "User object with updated information"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "User updated"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid input"
+        404:
+          description: "User not found"
+  ########################## APIARY ENDPOINTS ##########################
+  /apiaries:
+    get:
+      tags:
+        - Apiaries
+      summary: "Retrieves the list of all apiary objects"
+      responses:
+        200:
+          description: "A list of apiary objects"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Apiary"
+    post:
+      tags:
+        - Apiaries
+      summary: "Creates a new apiary"
+      parameters:
+        - in: body
+          name: body
+          description: "Apiary object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Apiary"
+      responses:
+        201:
+          description: "Apiary created"
+          schema:
+            $ref: "#/definitions/Apiary"
+        400:
+          description: "Invalid input"
+  /apiaries/{apiary_id}:
+    get:
+      tags:
+        - Apiaries
+      summary: "Retrieves an apiary"
+      parameters:
+        - name: apiary_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the apiary to retrieve"
+      responses:
+        200:
+          description: "An apiary object"
+          schema:
+            $ref: "#/definitions/Apiary"
+        404:
+          description: "Apiary not found"
+    delete:
+      tags:
+        - Apiaries
+      summary: "Deletes an apiary"
+      parameters:
+        - name: apiary_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the apiary to delete"
+      responses:
+        200:
+          description: "Apiary deleted"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Deletion message"
+        404:
+          description: "Apiary not found"
+    put:
+      tags:
+        - Apiaries
+      summary: "Updates an apiary"
+      parameters:
+        - name: apiary_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the apiary to update"
+        - in: body
+          name: body
+          description: "Apiary object with updated information"
+          required: true
+          schema:
+            $ref: "#/definitions/Apiary"
+      responses:
+        200:
+          description: "Apiary updated"
+          schema:
+            $ref: "#/definitions/Apiary"
+        400:
+          description: "Invalid input"
+        404:
+          description: "Apiary not found"
+  ########################## BEEHIVE ENDPOINTS ##########################
+  /beehives:
+    get:
+      tags:
+        - Beehives
+      summary: "Retrieves the list of all beehive objects"
+      responses:
+        200:
+          description: "A list of beehive objects"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Beehive"
+    post:
+      tags:
+        - Beehives
+      summary: "Creates a new beehive"
+      parameters:
+        - in: body
+          name: body
+          description: "Beehive object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Beehive"
+      responses:
+        201:
+          description: "Beehive created"
+          schema:
+            $ref: "#/definitions/Beehive"
+        400:
+          description: "Invalid input"
+  /beehives/{beehive_id}:
+    get:
+      tags:
+        - Beehives
+      summary: "Retrieves a beehive"
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the beehive to retrieve"
+      responses:
+        200:
+          description: "A beehive object"
+          schema:
+            $ref: "#/definitions/Beehive"
+        404:
+          description: "Beehive not found"
+    delete:
+      tags:
+        - Beehives
+      summary: "Deletes a beehive"
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the beehive to delete"
+      responses:
+        200:
+          description: "Beehive deleted"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Deletion message"
+        404:
+          description: "Beehive not found"
+    put:
+      tags:
+        - Beehives
+      summary: "Updates a beehive"
+      parameters:
+        - name: beehive_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the beehive to update"
+        - in: body
+          name: body
+          description: "Beehive object with updated information"
+          required: true
+          schema:
+            $ref: "#/definitions/Beehive"
+      responses:
+        200:
+          description: "Beehive updated"
+          schema:
+            $ref: "#/definitions/Beehive"
+        400:
+          description: "Invalid input"
+        404:
+          description: "Beehive not found"
+  ########################## INSPECTION ENDPOINTS ##########################
+  /inspections:
+    get:
+      tags:
+        - Inspections
+      summary: "Retrieves the list of all inspection objects"
+      responses:
+        200:
+          description: "A list of inspection objects"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Inspection"
+    post:
+      tags:
+        - Inspections
+      summary: "Creates a new inspection"
+      parameters:
+        - in: body
+          name: body
+          description: "Inspection object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Inspection"
+      responses:
+        201:
+          description: "Inspection created"
+          schema:
+            $ref: "#/definitions/Inspection"
+        400:
+          description: "Invalid input"
+  /inspections/{inspection_id}:
+    get:
+      tags:
+        - Inspections
+      summary: "Retrieves an inspection"
+      parameters:
+        - name: inspection_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the inspection to retrieve"
+      responses:
+        200:
+          description: "An inspection object"
+          schema:
+            $ref: "#/definitions/Inspection"
+        404:
+          description: "Inspection not found"
+    delete:
+      tags:
+        - Inspections
+      summary: "Deletes an inspection"
+      parameters:
+        - name: inspection_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the inspection to delete"
+      responses:
+        200:
+          description: "Inspection deleted"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Deletion message"
+        404:
+          description: "Inspection not found"
+    put:
+      tags:
+        - Inspections
+      summary: "Updates an inspection"
+      parameters:
+        - name: inspection_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the inspection to update"
+        - in: body
+          name: body
+          description: "Inspection object with updated information"
+          required: true
+          schema:
+            $ref: "#/definitions/Inspection"
+      responses:
+        200:
+          description: "Inspection updated"
+          schema:
+            $ref: "#/definitions/Inspection"
+        400:
+          description: "Invalid input"
+        404:
+          description: "Inspection not found"
+  ########################## HARVEST ENDPOINTS ##########################
+  /harvests:
+    get:
+      tags:
+        - Harvests
+      summary: "Retrieves the list of all harvest objects"
+      responses:
+        200:
+          description: "A list of harvest objects"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Harvest"
+    post:
+      tags:
+        - Harvests
+      summary: "Creates a new harvest"
+      parameters:
+        - in: body
+          name: body
+          description: "Harvest object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Harvest"
+      responses:
+        201:
+          description: "Harvest created"
+          schema:
+            $ref: "#/definitions/Harvest"
+        400:
+          description: "Invalid input"
+  /harvests/{harvest_id}:
+    get:
+      tags:
+        - Harvests
+      summary: "Retrieves a harvest"
+      parameters:
+        - name: harvest_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the harvest to retrieve"
+      responses:
+        200:
+          description: "A harvest object"
+          schema:
+            $ref: "#/definitions/Harvest"
+        404:
+          description: "Harvest not found"
+    delete:
+      tags:
+        - Harvests
+      summary: "Deletes a harvest"
+      parameters:
+        - name: harvest_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the harvest to delete"
+      responses:
+        200:
+          description: "Harvest deleted"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Deletion message"
+        404:
+          description: "Harvest not found"
+    put:
+      tags:
+        - Harvests
+      summary: "Updates a harvest"
+      parameters:
+        - name: harvest_id
+          in: path
+          type: string
+          required: true
+          description: "The ID of the harvest to update"
+        - in: body
+          name: body
+          description: "Harvest object with updated information"
+          required: true
+          schema:
+            $ref: "#/definitions/Harvest"
+      responses:
+        200:
+          description: "Harvest updated"
+          schema:
+            $ref: "#/definitions/Harvest"
+        400:
+          description: "Invalid input"
+        404:
+          description: "Harvest not found"
+########################## DEFINITIONS ##########################
+definitions:
+  User:
+    type: "object"
+    required:
+      - "id"
+      - "email"
+    properties:
+      id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174000"
+      email:
+        type: "string"
+        example: "user@example.com"
+      first_name:
+        type: "string"
+        example: "John"
+      last_name:
+        type: "string"
+        example: "Doe"
+      created_at:
+        type: "string"
+        format: "date-time"
+      updated_at:
+        type: "string"
+        format: "date-time"
+  Apiary:
+    type: "object"
+    required:
+      - "id"
+      - "user_id"
+      - "name"
+    properties:
+      id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174001"
+      user_id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174000"
+      name:
+        type: "string"
+        example: "Apiary 1"
+      location:
+        type: "string"
+        example: "123 Bee St, Beeville"
+      created_at:
+        type: "string"
+        format: "date-time"
+      updated_at:
+        type: "string"
+        format: "date-time"
+  Beehive:
+    type: "object"
+    required:
+      - "id"
+      - "apiary_id"
+      - "status"
+    properties:
+      id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174002"
+      apiary_id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174001"
+      status:
+        type: "string"
+        example: "healthy"
+      created_at:
+        type: "string"
+        format: "date-time"
+      updated_at:
+        type: "string"
+        format: "date-time"
+  Inspection:
+    type: "object"
+    required:
+      - "id"
+      - "beehive_id"
+      - "inspection_date"
+    properties:
+      id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174003"
+      beehive_id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174002"
+      inspection_date:
+        type: "string"
+        format: "date"
+        example: "2024-05-30"
+      notes:
+        type: "string"
+        example: "Beehive in good condition."
+      created_at:
+        type: "string"
+        format: "date-time"
+      updated_at:
+        type: "string"
+        format: "date-time"
+  Harvest:
+    type: "object"
+    required:
+      - "id"
+      - "beehive_id"
+      - "harvest_date"
+      - "quantity"
+    properties:
+      id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174004"
+      beehive_id:
+        type: "string"
+        example: "123e4567-e89b-12d3-a456-426614174002"
+      harvest_date:
+        type: "string"
+        format: "date"
+        example: "2024-05-31"
+      quantity:
+        type: "integer"
+        example: 10
+      created_at:
+        type: "string"
+        format: "date-time"
+      updated_at:
+        type: "string"
+        format: "date-time"

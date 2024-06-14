@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Apiary Management{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('views.index') }}">Home</a></li>
+	  {% if session.get('user_id') %}
+
+          <li><a href="{{ url_for('views.list_apiaries') }}">My Apiaries</a></li>
+	  <li><a href="{{ url_for('views.list_beehives') }}">My Beehives</a></li>
+	  <li><a href="{{ url_for('views.list_inspections') }}">Inspections</a></li>
+	  <li><a href="{{ url_for('views.list_harvests') }}">Harvest</a></li>
+	  <li><a href="{{ url_for('views.show_profile') }}">My Profile</a></li>
+	  <li><a href="{{ url_for('views.logout') }}">Logout</a></li>
+	  {% else %}
+	  <li><a href="{{ url_for('views.login') }}">Login</a></li>
+	  {% endif %}
+        </ul>
+      </nav>
+      <div class="logo"></div>
+      <div class="content">
+        {% block content %}{% endblock %}
+      </div>
+    </header>
+  </body>
+</html>

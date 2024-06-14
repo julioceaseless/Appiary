@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Apiaries{% endblock %}
+
+{% block content %}
+    <h1>Apiaries</h1>
+    <ul>
+        {% for apiary in apiaries %}
+	<li><a href="apiary/{{ apiary.split(' - ')[1] }}">{{ apiary }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="button">
+      <a href="{{ url_for('views.add_apiary') }}">Add Apiary</a>
+    </div>
+{% endblock %}

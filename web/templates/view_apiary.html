@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Apiary Details{% endblock %}
+
+{% block content %}
+    <h1>{{ apiary.name }}</h1>
+    <p><strong>Created on:</strong> {{ apiary.created_at }}</p>
+    <p><strong>Last updated:</strong> {{ apiary.updated_at }}</p>
+    <p><strong>Location:</strong> {{ apiary.latitude }}, {{ apiary.longitude }}</p>
+    <p><strong>Hives:</strong> {{ hives_count }}</p>
+    <p> {{ apiary.description }} </p>
+    <a href="{{ url_for('views.delete_apiary', apiary_id=apiary.id) }}" onclick="return confirm('Are you sure you want to delete this apiary?');">Delete Apiary</a>
+{% endblock %}

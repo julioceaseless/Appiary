@@ -17,7 +17,9 @@ class Harvest(BaseModel, Base):
         # use database storage
         __tablename__ = 'harvests'
 
-        hive_id = Column(String(60), ForeignKey('beehives.id'), nullable=False)
+        hive_id = Column(String(60),
+                         ForeignKey('beehives.id', ondelete='CASCADE'),
+                         nullable=False)
         quantity = Column(Float, default=0.00)
         notes = Column(String(1024), nullable=True)
     else:
@@ -36,9 +38,13 @@ class Harvest(BaseModel, Base):
         if beehive:
             if beehive.ready_for_harvest:
                 # reset ready flag
-                beehive.ready_for_harvest = False
-                # track number of harvests
-                beehive.harvest_count += 1
+                beehive.update_status(False)
+
+                # retrieve current number of harvests performed
+                num_of_harvests = beehive.harvest_count
+                    
+                # increment harvests by one
+                num_of_harvests += 1
 
                 # calculate the next harvest date
                 current_month = datetime.now().month
@@ -49,11 +55,8 @@ class Harvest(BaseModel, Base):
                                              int(self.created_at.day)
                                              ).isoformat()
 
-                # set next harvest date
-                if hasattr(beehive, 'next_harvest_date'):
-                    beehive.next_harvest_date = next_harvest_date
-                else:
-                    setattr(beehive, 'next_harvest_date', next_harvest_date)
+                # update harvest count and next harvest date
+                beehive.update_harvest_info(next_harvest_date, num_of_harvests)
                 beehive.update()
             else:
                 return f"{beehive.id} is not ready for harvest!"

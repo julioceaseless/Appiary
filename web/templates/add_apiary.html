@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Add Apiary{% endblock %}
+
+{% block content %}
+    <h1>Add New Apiary</h1>
+    <form action="{{ url_for('views.add_apiary') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" required>
+	<label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" required>
+        <button type="submit">Add Apiary</button>
+    </form>
+{% endblock %}

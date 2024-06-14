@@ -26,22 +26,24 @@ apiary = Apiary(**apiary_attr)
 apiary.save()
 
 for num in range(5):
-    beehive_attr = {"apiary_id": apiary.id}
+    beehive_attr = {"apiary_id": apiary.id,
+                    "hive_type": "langstroth",
+                    "wood_type": "cypress"}
     beehive = Beehive(**beehive_attr)
     beehive.save()
 
 # retrieve a beehive
 beehive_keys = list(storage.all("Beehive").keys())
 beehive_id = beehive_keys[1].split('.')[1]
-beehive_id = "c1e8a836-9d57-47c9-bc98-9547bbd5fd5d"
+beehive_id = "51dc9d2e-fc58-4a7e-8a09-1d7204b27359"
 print(f"Beehive_ID: {beehive_id}")
 
 print(storage.get("Beehive", beehive_id))
 # inspection
 insp_attr = {"hive_id": beehive_id, "observations": "This is a strong colony", "ready_for_harvest": True}
 inspection = Inspection(**insp_attr)
-sleep(10)
-inspection.set_harvest_ready()
+sleep(5)
+inspection.set_hive_status()
 inspection.save()
 
 
