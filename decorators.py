@@ -13,7 +13,8 @@ def login_required(f):
             return redirect(url_for('views.login'))
         return f(user_id, *args, **kwargs)
     return decorated_function
-  
+
+ 
 # define a decorator to protect API endpoints with JWT tokens
 def token_required(f):
     """
