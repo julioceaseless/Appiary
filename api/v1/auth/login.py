@@ -30,7 +30,7 @@ def login():
                             {'WWW-Authenticate': 'Basic realm="Login required!"'})
     
     # retrieve user
-    user = storage.query(User).filter_by(email == auth.username).first()
+    user = storage.query(User).filter_by(email=auth.username).first()
     if user:
         # check if password is correct
         if check_password_hash(user.password, auth.password):
@@ -39,8 +39,11 @@ def login():
                 'user': auth.username,
                 'exp': datetime.datetime.utcnow() + timedelta_30_mins
                 }, current_app.config['SECRET_KEY'], algorithm="HS256")
-            return jsonify({'token': token}), 200
+            # decode token to a regular string so that it is JSON serializable
+            token = token.decode('UTF-8')
+
+            return make_response(jsonify({'token': token}), 200)
         else:
-            abort(401, description="Password incorrect!"))
+            abort(401, description="Password incorrect!")
     else:
         abort(401, description="User not found!")

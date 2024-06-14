@@ -7,9 +7,9 @@ from flask import abort, jsonify, make_response, request
 from decorators import token_required
 
 
-@token_required
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-def get_users():
+@token_required
+def get_users(current_user):
     """
     Retrieves the list of all user objects
     """

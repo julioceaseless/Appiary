@@ -9,7 +9,7 @@ import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_key')
 
 # Determine the absolute path to swagger.yaml
 swagger_yaml_path = os.path.join(os.path.dirname(__file__), '../../docs/swagger.yaml')
