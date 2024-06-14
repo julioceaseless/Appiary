@@ -31,6 +31,7 @@ def get_inspection(inspection_id):
 
 @app_views.route('/inspections/<inspection_id>', methods=['DELETE'],
                  strict_slashes=False)
+@token_required
 def delete_inspection(inspection_id):
     """
     Deletes a inspection Object
@@ -48,6 +49,7 @@ def delete_inspection(inspection_id):
 
 
 @app_views.route('/inspections', methods=['POST'], strict_slashes=False)
+@token_required
 def post_inspection():
     """
     Creates a inspection
@@ -71,6 +73,7 @@ def post_inspection():
 
 
 @app_views.route('/inspections/<inspection_id>', methods=['PUT'], strict_slashes=False)
+@token_required
 def put_inspection(inspection_id):
     """
     Updates a inspection

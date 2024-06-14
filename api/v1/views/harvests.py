@@ -31,6 +31,7 @@ def get_harvest(harvest_id):
 
 @app_views.route('/harvests/<harvest_id>', methods=['DELETE'],
                  strict_slashes=False)
+@token_required
 def delete_harvest(harvest_id):
     """
     Deletes a harvest Object
@@ -48,6 +49,7 @@ def delete_harvest(harvest_id):
 
 
 @app_views.route('/harvests', methods=['POST'], strict_slashes=False)
+@token_required
 def post_harvest():
     """
     Creates a harvest
@@ -70,6 +72,7 @@ def post_harvest():
 
 
 @app_views.route('/harvests/<harvest_id>', methods=['PUT'], strict_slashes=False)
+@token_required
 def put_harvest(harvest_id):
     """
     Updates a harvest
