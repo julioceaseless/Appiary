@@ -8,7 +8,6 @@ from decorators import token_required
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-@token_required
 def get_users(current_user):
     """
     Retrieves the list of all user objects
@@ -16,7 +15,7 @@ def get_users(current_user):
     all_users = storage.all('User').values()
     list_users = []
     for user in all_users:
-        list_users.append(user.to_dict())
+        list_users.append(user.to_dict().pop('password'))
     return jsonify(list_users)
 
 
@@ -29,11 +28,12 @@ def get_user(user_id):
     if not user:
         abort(404)
 
-    return jsonify(user.to_dict())
+    return jsonify(user.to_dict().pop('password'))
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'],
                  strict_slashes=False)
+@token_required
 def delete_user(user_id):
     """
     Deletes a user Object
@@ -51,6 +51,7 @@ def delete_user(user_id):
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
+@token_required
 def post_user():
     """
     Creates a user
@@ -70,6 +71,7 @@ def post_user():
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
+@token_required
 def put_user(user_id):
     """
     Updates a user

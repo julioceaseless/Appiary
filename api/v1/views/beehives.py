@@ -31,6 +31,7 @@ def get_beehive(beehive_id):
 
 @app_views.route('/beehives/<beehive_id>', methods=['DELETE'],
                  strict_slashes=False)
+@token_required
 def delete_beehive(beehive_id):
     """
     Deletes a beehive Object
@@ -48,6 +49,7 @@ def delete_beehive(beehive_id):
 
 
 @app_views.route('/beehives', methods=['POST'], strict_slashes=False)
+@token_required
 def post_beehive():
     """
     Creates a new beehive
@@ -69,6 +71,7 @@ def post_beehive():
 
 
 @app_views.route('/beehives/<beehive_id>', methods=['PUT'], strict_slashes=False)
+@token_required
 def put_beehive(beehive_id):
     """
     Updates a beehive
