@@ -37,7 +37,7 @@ def sign_up():
             flash("All fields are required!", category="error")
             return redirect(url_for('views.sign_up'))
 
-        # Addition validation for password
+        # Additional validation for password
         if password1 != password2:
             flash("Passwords do not match!", category="error")
             return redirect(url_for('views.sign_up'))
@@ -81,8 +81,10 @@ def sign_up():
         session['user_id'] = user.id
 
         return redirect(url_for('views.show_profile'))
-
-    return render_template("sign-up.html")
+    elif session.get('user_id'):
+        redirect(url_for('views.profile'))
+    else:
+        return render_template("sign-up.html")
 
 
 @views.route("/profile")
