@@ -51,6 +51,15 @@ form input, form button {
   margin: 0 auto;
 }
 
+/*****************     Flashes       *********************/
+.success {
+  color: green;
+}
+
+.error {
+  color:red;
+}
+
 /*****************     Inspection    *********************/
 textarea {
     height: 200px;
