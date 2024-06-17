@@ -13,7 +13,5 @@
       {% else %}
       <p>You don't have any beehives yet.</p>
     {% endif %}
-    <div class="button">
-      <a href="{{ url_for('views.add_beehive') }}" class="badge badge-primary">Add Beehive</a>
-    </div>
+      <a href="{{ url_for('views.add_beehive') }}" class="btn btn-primary">Add Beehive</a>
 {% endblock %}

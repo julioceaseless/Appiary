@@ -13,7 +13,5 @@
       {% else %}
       <p>You have not performed any harvests yet.</p>
     {% endif %}
-    <div class="button">
-      <a href="{{ url_for('views.add_harvest') }}" class="badge badge-primary">Add Harvest</a>
-    </div>
+    <a href="{{ url_for('views.add_harvest') }}" class="btn btn-primary">Add Harvest</a>
 {% endblock %}

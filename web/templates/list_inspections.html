@@ -13,7 +13,5 @@
       {% else %}
       <p>You have not performed any inspection yet!</p>
     {% endif %}
-    <div class="button">
-      <a href="{{ url_for('views.add_inspection') }}" class="badge badge-primary">Add Inspection</a>
-    </div>
+    <a href="{{ url_for('views.add_inspection') }}" class="btn btn-primary">Add Inspection</a>
 {% endblock %}
