@@ -24,7 +24,6 @@ nav ul li {
 h1, h2, h3 {
     color: #343a40;
 }
-**/
 
 form {
     display: flex;
@@ -49,17 +48,9 @@ form input, form button {
     height: 50px;
 }
 
+**/
 .logo img {
   margin: 0 auto;
-}
-
-/*****************     Flashes       *********************/
-.success {
-  color: green;
-}
-
-.error {
-  color:red;
 }
 
 /*****************     Inspection    *********************/
