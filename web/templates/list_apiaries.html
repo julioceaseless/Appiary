@@ -9,7 +9,5 @@
 	<li><a href="apiary/{{ apiary.split(' - ')[1] }}">{{ apiary }}</a></li>
         {% endfor %}
     </ul>
-    <div class="button">
-      <a href="{{ url_for('views.add_apiary') }}" class="badge badge-primary">Add Apiary</a>
-    </div>
+      <a href="{{ url_for('views.add_apiary') }}" class="btn btn-primary">Add Apiary</a>
 {% endblock %}

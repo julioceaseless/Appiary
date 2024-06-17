@@ -11,6 +11,6 @@
     <p><strong>Beehive:</strong> {{ harvest.hive_id }}-{{ harvest.beehive.apiary.name }}</p>
     
     <div class="button">
-      <a href="{{ url_for('views.delete_harvest', harvest_id=harvest.id) }}" class="badge badge-primary" onclick="return confirm('Are you sure you want to delete this harvest?');">Delete Harvest</a>
+      <a href="{{ url_for('views.delete_harvest', harvest_id=harvest.id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this harvest?');">Delete Harvest</a>
     </div>
 {% endblock %}
