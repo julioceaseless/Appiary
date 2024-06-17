@@ -82,7 +82,7 @@ def sign_up():
 
         return redirect(url_for('views.show_profile'))
     elif session.get('user_id'):
-        redirect(url_for('views.profile'))
+        return redirect(url_for('views.show_profile'))
     else:
         return render_template("sign-up.html")
 
@@ -113,19 +113,19 @@ def login():
 
         # Optimized search for the user by email
         user = storage.query(User).filter_by(email=email).first()
-        print(user)
         if user:
             # check if password is correct
             if check_password_hash(user.password, password):
                 # set session id
                 session['user_id'] = user.id
+                
                 # show login success notification
                 flash("Logged in!", category="success")
+                
                 # show user profile
                 return redirect(url_for('views.show_profile'))
             else:
                 flash("Password incorrect!", category="error")
-                print("Password incorect")
                 return redirect(url_for('views.login'))
         else:
             flash("Invalid email or user does not exist", category="error")
