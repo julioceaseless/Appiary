@@ -5,22 +5,26 @@
 {% block content %}
     <h1>Add New Inspection</h1>
     <form action="{{ url_for('views.add_inspection') }}" method="post">
+      <div class="form-group">
 	<label for="hive_id">Select Beehive</label>
-	<select id="hive_id" name="hive_id" required>
+	<select class="form-control" id="hive_id" name="hive_id" required>
 		{% for hive in hives %}
 		<option value="{{ hive.id }}">{{ hive.id }}</option>
 		{% endfor %}
-	</select><br>
-	
+	</select>
+      </div>
+      <div class="form-group">
 	<label for="status">Ready for Harvest?</label>
-	<select id="status" name="status" required>
+	<select class="form-control" id="status" name="status" required>
 		{% for status in status_options %}
 		<option value="{{ status }}">{{ status }}</option>
 		{% endfor %}
-	</select><br>
+	</select>
+      </div>
+      <div class="form-group">
 	<label for="notes">Observations</label>
-        <textarea id="notes" name="notes" required></textarea><br>
-        
-	<button type="submit">Add Inspection</button>
+        <textarea class="form-control" id="notes" name="notes" required></textarea><br>
+      </div>
+	<button type="submit" class="btn btn-primary">Add Inspection</button>
     </form>
 {% endblock %}

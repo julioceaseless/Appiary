@@ -5,16 +5,22 @@
 {% block content %}
     <h1>Add New Beehive</h1>
     <form action="{{ url_for('views.add_beehive') }}" method="post">
+      <div class="form-group">
 	<label for="apiary">Select Apiary:</label>
-	<select id="apiary" name="apiary" required>
+	<select id="apiary" class="form-control" name="apiary" required>
 		{% for apiary in apiaries %}
 		<option value="{{ apiary.id }}">{{ apiary.id }} - {{ apiary.name }}</option>
 		{% endfor %}
 	</select>
+      </div>
+      <div class="form-group">
 	<label for="type">Type of Hive:</label>
-	<input type="text" id="type" name="type" required>
+	<input type="text" class="form-control" id="type" name="type" required>
+      </div>
+      <div class="form-group">
 	<label for="wood">Type of Wood:</label>
-        <input type="text" id="wood" name="wood" required>
-        <button type="submit">Add Beehive</button>
+        <input type="text" class="form-control" id="wood" name="wood" required>
+      </div>
+        <button class="btn btn-primary" type="submit">Add Beehive</button>
     </form>
 {% endblock %}
