@@ -13,9 +13,11 @@
         <p><strong>Email:</strong> {{ user_data.email }}</p>
         <p><strong>Year of Birth:</strong> {{ user_data.yob }}</p>
         <p><strong>Joined:</strong> {{ user_data.Joined }}</p>
-	<div>
-	  <h3>About</h3>
-	  <p>I am a bee farmer!</p>
+	<div class="card">
+	  <div class="card-body">
+	    <h3 class="card-title"></h3>
+	    <p class="card-text"> Hello! I’m {{ user_data.first_name }}, a passionate beekeeper with over 10 years of experience. I started beekeeping as a hobby, which quickly turned into a passion. I focus on sustainable practices, ensuring the health of my bees and the environment. My interests include honey production, bee conservation, and educating others about the importance of bees in our ecosystem. When I'm not managing my hives, I enjoy sharing my knowledge through workshops and articles. Thank you for visiting my profile. Let’s connect and work together to support our vital bee populations!</p>
+	  </div>
 	</div>
       </div>
     </section>
