@@ -53,11 +53,12 @@ form input, form button {
     height: 50px;
 }
 
-**/
-.logo img {
-  margin: 0 auto;
-}
+*
+*/
 
+.rounded-logo {
+    border-radius:100px !important;
+}
 /*****************     Inspection    *********************/
 textarea {
     height: 200px;

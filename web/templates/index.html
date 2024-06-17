@@ -4,25 +4,49 @@
 
 {% block content %}
   <h1>Welcome to the Apiary Management System</h1>
-  <p>Manage your apiaries, beehives, inspections, and harvests with ease.</p>
+  <p>Manage your apiaries, beehives, inspections, and harvests with ease. Bee Smart!</p>
   <h2>Dashboard</h2>
   <div class="table">
     <div class="table-row">
       <div class="table-cell">
         <div class="cell-title">Apiaries</div>
+	{% if apiary_count == "Error" %}
+	  <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+	  </div>
+	{% else %}
 	<p>{{ apiary_count }}</p>
+        {% endif %}
       </div>
       <div class="table-cell">
         <div class="cell-title">Beehives</div>
-	<p>{{ hive_count }}</p>
+        {% if hive_count == "Error" %}
+          <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        {% else %}
+        <p>{{ hive_count }}</p>
+        {% endif %}
       </div>
       <div class="table-cell">
         <div class="cell-title">Inspections</div>
-	<p>{{ inspect_count }}</p>
+        {% if inspect_count == "Error" %}
+          <div class="spinner-border text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        {% else %}
+        <p>{{ inspect_count }}</p>
+        {% endif %}
       </div>
       <div class="table-cell">
         <div class="cell-title">Harvests</div>
-	<p>{{ harvest_count }}</p>
+          {% if harvest_count == "Error" %}
+          <div class="spinner-border text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        {% else %}
+        <p>{{ harvest_count }}</p>
+        {% endif %}
       </div>
     </div>
   </div>
