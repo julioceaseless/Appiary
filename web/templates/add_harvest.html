@@ -3,6 +3,7 @@
 {% block title %}Add Harvest{% endblock %}
 
 {% block content %}
+  <div class="container">
     <h1>Add New Harvest Event</h1>
     <form action="{{ url_for('views.add_harvest') }}" method="post">
       <div class="form-group">
@@ -23,4 +24,5 @@
       </div>
         <button type="submit" class="btn btn-primary">Add Harvest</button>
     </form>
+  </div>
 {% endblock %}

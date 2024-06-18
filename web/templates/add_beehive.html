@@ -3,6 +3,7 @@
 {% block title %}Add Beehive{% endblock %}
 
 {% block content %}
+  <div class="container">
     <h1>Add New Beehive</h1>
     <form action="{{ url_for('views.add_beehive') }}" method="post">
       <div class="form-group">
@@ -23,4 +24,5 @@
       </div>
         <button class="btn btn-primary" type="submit">Add Beehive</button>
     </form>
+  </div>
 {% endblock %}

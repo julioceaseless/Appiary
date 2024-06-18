@@ -42,6 +42,7 @@ def view_apiary(user_id, apiary_id):
 @login_required
 def add_apiary(user_id):
     """Add new apiary"""
+    google_map_api_key = environ.get('GOOGLE_MAP_API')
     if request.method == 'POST':
         name = request.form.get('name')
         latitude = request.form.get('latitude')
@@ -56,7 +57,8 @@ def add_apiary(user_id):
         return redirect(url_for('views.list_apiaries'))
 
     users = storage.all('User')
-    return render_template('add_apiary.html', users=users)
+    return render_template('add_apiary.html', users=users,
+                                              google_map_api_key=google_map_api_key)
 
 @views.route('/apiary/delete/<apiary_id>', methods=['GET'])
 @login_required
