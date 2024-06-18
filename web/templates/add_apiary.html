@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}Add Apiary{% endblock %}
-
+{% block add_head_scripts %}
+ <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}"></script>
+{% endblock %}
+{% block add_body_attributes %}onload="initMap()" {% endblock %}
 {% block content %}
+  <div class="container">
     <h1>Add New Apiary</h1>
     <form action="{{ url_for('views.add_apiary') }}" method="post">
       <div class="form-group">
@@ -11,12 +15,48 @@
       </div>
       <div class="form-group">
         <label for="latitude">Latitude:</label>
-        <input type="text" class="form-control" id="latitude" name="latitude" required>
+        <input type="text" class="form-control" id="latitude" name="latitude" required readonly>
       </div>
       <div class="form-group">
 	<label for="longitude">Longitude:</label>
-        <input type="text" class="form-control" id="longitude" name="longitude" required>
+        <input type="text" class="form-control" id="longitude" name="longitude" required readonly>
       </div>
+      <div class="container p-4">
+        <div id="map" style="height: 400px; width: 100%;"></div>
+      </div>
+
         <button type="submit" class="btn btn-primary">Add Apiary</button>
     </form>
+  </div>
+{% endblock %}
+{% block bottom_body %}
+  <script>
+    function initMap() {
+      var initialLocation = {lat: 0.00111, lng: 37.07575}; // Default location
+      var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: initialLocation
+      });
+      var marker = new google.maps.Marker({
+        position: initialLocation,
+        map: map,
+        draggable: true
+      });
+
+      google.maps.event.addListener(map, 'click', function(event) {
+        var lat = event.latLng.lat().toFixed(5);
+        var lng = event.latLng.lng().toFixed(5);
+        marker.setPosition(event.latLng);
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+       });
+
+       google.maps.event.addListener(marker, 'dragend', function(event) {
+         var lat = event.latLng.lat();
+         var lng = event.latLng.lng();
+         document.getElementById('latitude').value = lat;
+         document.getElementById('longitude').value = lng;
+       });
+    }
+  </script>  
 {% endblock %}
