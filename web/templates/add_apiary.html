@@ -2,7 +2,7 @@
 
 {% block title %}Add Apiary{% endblock %}
 {% block add_head_scripts %}
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4_CXoghV5bPAz4SHUDuGKZLdUPXSqTro"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}"></script>
 {% endblock %}
 {% block add_body_attributes %}onload="initMap()" {% endblock %}
 {% block content %}
