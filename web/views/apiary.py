@@ -15,12 +15,12 @@ from decorators import login_required
 def list_apiaries(user_id):
     """List apiaries"""
     apiary_list = []
-    apiaries = storage.all('Apiary')
-    for apiary in apiaries.values():
-        if apiary.user_id == user_id:
-            apiary_list.append(f'{apiary.name} - {apiary.id}')
+    apiaries = storage.query(Apiary).filter_by(user_id=user_id).all()
+    for apiary in apiaries:
+        apiary_list.append(f'{apiary.name} - {apiary.id}')
     apiary_list.sort()
-    return render_template('list_apiaries.html', apiaries=apiary_list)
+    return render_template('list_apiaries.html', apiaries=apiary_list,
+                                                 count=len(apiary_list))
 
 @views.route('/apiary/<apiary_id>')
 @login_required
@@ -47,10 +47,12 @@ def add_apiary(user_id):
         name = request.form.get('name')
         latitude = request.form.get('latitude')
         longitude = request.form.get('longitude')
+        description = request.form.get('description')
         data = {'user_id': user_id,
                 'name': name,
                 'latitude': latitude,
-                'longitude': longitude
+                'longitude': longitude,
+                'description': description
                 }
         apiary = Apiary(**data)
         apiary.save()

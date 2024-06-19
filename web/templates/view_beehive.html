@@ -3,17 +3,26 @@
 {% block title %}Beehive Details{% endblock %}
 
 {% block content %}
-    <p><strong>ID:</strong> {{ beehive.id }}</p>
-    <p><strong>Created on:</strong> {{ beehive.created_at }}</p>
-    <p><strong>Last updated:</strong> {{ beehive.updated_at }}</p>
-    <p><strong>Type:</strong> {{ beehive.hive_type }}</p>
-    <p><strong>Made from:</strong> {{ beehive.wood_type }}</p>
-    <p><strong>Ready for Harvest:</strong> {{ beehive.ready_for_harvest }}</p>
-    <p><strong>Next Harvest Date:</strong> {{ beehive.next_harvest_date }}</p>
-    <p><strong>Number of Harvests:</strong> {{ beehive.harvest_count }}</p>
-    <p><strong>Apiary:</strong> {{ beehive.apiary_id }}-{{ beehive.apiary.name }}</p>
-    
-    <div class="button">
-      <a href="{{ url_for('views.delete_beehive', beehive_id=beehive.id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this beehive?');">Delete Beehive</a>
+  <div class="container">
+    <h2 class="text-center">Beehive Details</h2>
+    <div class="card mx-auto w-75 pb-4">
+      <div class="card-header bg-warning shadow">
+        <h3>Beehive </h3>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><strong>ID:</strong> {{ beehive.id }}</p>
+        <p class="card-text"><strong>Created on:</strong> {{ beehive.created_at }}</p>
+        <p class="card-text"><strong>Last updated:</strong> {{ beehive.updated_at }}</p>
+        <p class="card-text"><strong>Type:</strong> {{ beehive.hive_type }}</p>
+        <p class="card-text"><strong>Made from:</strong> {{ beehive.wood_type }}</p>
+        <p class="card-text"><strong>Ready for Harvest:</strong> {{ beehive.ready_for_harvest }}</p>
+        <p class="card-text"><strong>Next Harvest Date:</strong> {{ beehive.next_harvest_date }}</p>
+        <p class="card-text"><strong>Number of Harvests:</strong> {{ beehive.harvest_count }}</p>
+	<p class="card-text"><strong>Apiary:</strong> {{ beehive.apiary.name }}:{{ beehive.apiary_id }}</p>
+      </div>
+        <a href="{{ url_for('views.delete_beehive', beehive_id=beehive.id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this beehive?');">Delete Beehive</a>
+      <div class="card-footer text-muted">
+      </div>
     </div>
+  </div>
 {% endblock %}
