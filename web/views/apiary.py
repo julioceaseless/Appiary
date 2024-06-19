@@ -47,10 +47,12 @@ def add_apiary(user_id):
         name = request.form.get('name')
         latitude = request.form.get('latitude')
         longitude = request.form.get('longitude')
+        description = request.form.get('description')
         data = {'user_id': user_id,
                 'name': name,
                 'latitude': latitude,
-                'longitude': longitude
+                'longitude': longitude,
+                'description': description
                 }
         apiary = Apiary(**data)
         apiary.save()
