@@ -16,7 +16,6 @@ def list_beehives(user_id):
     """List beehives"""
     beehive_list = []
     all_hives = storage.all('Beehive')
-    print(session)
     for hive in all_hives.values():
         if hive.apiary.user_id == user_id:
             beehive_list.append(hive.id)

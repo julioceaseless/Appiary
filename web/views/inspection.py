@@ -15,11 +15,10 @@ from models.apiary import Apiary
 @login_required
 def list_inspections(user_id):
     """List inspections"""
-
+    inspection_list = []
     # Query inspections directly related to the user's apiaries
     inspections = storage.query(Inspection).join(Beehive).join(Apiary).filter(Apiary.user_id == user_id).all()
     inspection_list = [inspection.id for inspection in inspections]
-    inspection_list.sort()
 
     return render_template('list_inspections.html', inspections=inspection_list,
                                                     size=len(inspection_list))

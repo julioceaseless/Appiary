@@ -4,10 +4,14 @@
 
 {% block content %}
     <h1>Apiaries</h1>
-    <ul>
+    {% if count == 0 %}
+      <p>You don't have any apiary yet.</p>
+    {% else %}
+      <ol>
         {% for apiary in apiaries %}
-	<li><a href="apiary/{{ apiary.split(' - ')[1] }}">{{ apiary }}</a></li>
+	  <li><a href="apiary/{{ apiary.split(' - ')[1] }}">{{ apiary }}</a></li>
         {% endfor %}
-    </ul>
+      </ol>
+    {% endif %}
       <a href="{{ url_for('views.add_apiary') }}" class="btn btn-primary">Add Apiary</a>
 {% endblock %}
