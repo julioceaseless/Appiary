@@ -8,6 +8,30 @@ from flask import render_template, request, redirect, url_for
 from flask import session
 from models.apiary import Apiary
 from decorators import login_required
+import requests
+
+
+def get_weather(api_key, obj):
+    """Method retrieves weather data"""
+    # create URL for API request to the WeatherMap
+    base_url = "https://api.openweathermap.org/data/2.5/weather"
+    url_params = {
+            "lat": obj.latitude,
+            "lon": obj.longitude,
+            "appid": api_key
+            }
+
+    # make GET request
+    response = requests.get(base_url, url_params)
+
+    # check if request is successfull
+    if response.status_code == 200:
+        # parse json
+        data = response.json()
+        return data
+    else:
+        data = {"Error": response.status_code}
+        return data
 
 
 @views.route('/apiaries')
@@ -27,8 +51,15 @@ def list_apiaries(user_id):
 def view_apiary(user_id, apiary_id):
     """View an apiary"""
     hives_count = 0
+    weather_api_key = "abcb6b88edb80a24024ad742079ecdd9"
+
     apiary = storage.get('Apiary', apiary_id)
-    # count hives in the apiary
+
+    # get weather data
+    weather_data = get_weather(weather_api_key, apiary)
+
+    print(weather_data)
+    # check number of hives in apiary
     hives = storage.all('Beehive')
     if hives:
         for hive in hives.values():
@@ -36,7 +67,8 @@ def view_apiary(user_id, apiary_id):
                 hives_count += 1
 
     return render_template('view_apiary.html', apiary=apiary,
-                                               hives_count=hives_count)
+                                               hives_count=hives_count,
+                                               weather_data=weather_data)
 
 @views.route('/apiary/add', methods=['GET', 'POST'])
 @login_required

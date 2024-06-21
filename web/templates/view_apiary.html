@@ -14,7 +14,8 @@
         <p class="card-text"><strong>Last updated:</strong> {{ apiary.updated_at }}</p>
         <p class="card-text"><strong>Location:</strong> {{ apiary.latitude }}, {{ apiary.longitude }}</p>
         <p class="card-text"><strong>Beehives:</strong> {{ hives_count }}</p>
-        <p class="card-text"> {{ apiary.description }} </p>
+	<p class="card-text"><strong>Description:</strong>{{ apiary.description }} </p>
+	<p class="card-text"><strong> Weather Today:</strong> {{ (weather_data['weather'][0]['description']).capitalize() }}</p>
       </div>
         <a href="{{ url_for('views.delete_apiary', apiary_id=apiary.id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this apiary?');">Delete Apiary</a>
       <div class="card-footer text-muted">
