@@ -6,11 +6,11 @@
     <h1>Beehives</h1>
     {% if size > 0 %}
       <ol>
-	{% for hive in beehives %}
-	  <li><a href="beehive/{{ hive }}">{{ hive }}</a></li>
+	{% for hive in hives %}
+	<li><a href="beehive/{{ hive[2] }}">{{ hive[2] }} - {{ hive[0] }}</a></li>
         {% endfor %}
       </ol>
-      {% else %}
+    {% else %}
       <p>You don't have any beehives yet.</p>
     {% endif %}
       <a href="{{ url_for('views.add_beehive') }}" class="btn btn-primary">Add Beehive</a>

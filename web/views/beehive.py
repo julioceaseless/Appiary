@@ -15,11 +15,11 @@ from models.apiary import Apiary
 def list_beehives(user_id):
     """List beehives"""
     beehive_list = []
-    all_hives = storage.all('Beehive')
-    for hive in all_hives.values():
-        if hive.apiary.user_id == user_id:
-            beehive_list.append(hive.id)
-    return render_template('list_beehives.html', beehives=beehive_list,
+    all_hives = storage.query(Beehive).join(Apiary).filter(Apiary.user_id==user_id).all()
+    for hive in all_hives:
+        beehive_list.append([hive.apiary.name, ' - ', hive.id])
+        beehive_list.sort()
+    return render_template('list_beehives.html', hives=beehive_list,
                                                  size=len(beehive_list))
 
 @views.route('/beehive/<beehive_id>')
