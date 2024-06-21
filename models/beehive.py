@@ -25,8 +25,7 @@ class Beehive(BaseModel, Base):
         __tablename__ = 'beehives'
 
         # override the UUID column with integer type
-        apiary_id = Column(String(60), 
-                           ForeignKey('apiaries.id', ondelete='CASCADE'),
+        apiary_id = Column(String(60), ForeignKey('apiaries.id'),
                            nullable=False)
         _ready_for_harvest = Column(Boolean, default=False)
         _next_harvest_date = Column(DateTime, default=default_time)
