@@ -61,7 +61,7 @@ def view_apiary(user_id, apiary_id):
     weather = weather_data['weather'][0]['description'].capitalize()
     location = f"{weather_data['name']}, {weather_data['sys']['country']}"
     icon_code = weather_data['weather'][0]['icon']
-    icon_url = f"https://openweathermap.org/img/wn/{icon_code}.png"
+    icon_url = f"https://openweathermap.org/img/wn/{icon_code}@2x.png"
 
     print(weather_data)
     
