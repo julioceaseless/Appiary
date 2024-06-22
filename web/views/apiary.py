@@ -50,25 +50,38 @@ def list_apiaries(user_id):
 @login_required
 def view_apiary(user_id, apiary_id):
     """View an apiary"""
-    hives_count = 0
+    hive_count = 0
     weather_api_key = "abcb6b88edb80a24024ad742079ecdd9"
 
     apiary = storage.get('Apiary', apiary_id)
 
     # get weather data
     weather_data = get_weather(weather_api_key, apiary)
+    
+    weather = weather_data['weather'][0]['description'].capitalize()
+    location = f"{weather_data['name']}, {weather_data['sys']['country']}"
+    icon_code = weather_data['weather'][0]['icon']
+    icon_url = f"https://openweathermap.org/img/wn/{icon_code}.png"
 
     print(weather_data)
+    
     # check number of hives in apiary
     hives = storage.all('Beehive')
     if hives:
         for hive in hives.values():
             if hive.apiary_id == apiary_id:
-                hives_count += 1
+                hive_count += 1
 
-    return render_template('view_apiary.html', apiary=apiary,
-                                               hives_count=hives_count,
-                                               weather_data=weather_data)
+    # put everything in a dict
+    data = {
+            "apiary": apiary,
+            "weather": weather,
+            "location": location,
+            "icon_url": icon_url,
+            "hive_count": hive_count
+            }
+
+    return render_template('view_apiary.html', data=data)
 
 @views.route('/apiary/add', methods=['GET', 'POST'])
 @login_required

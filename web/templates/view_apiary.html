@@ -4,22 +4,38 @@
 
 {% block content %}
   <div class="container">
-    <h2 class="text-center">Apiary Details</h2>
-    <div class="card mx-auto w-75 pb-4">
-      <div class="card-header bg-warning shadow">
-        <h3>Apiary Name: {{ apiary.name }}</h3>
+    <h2 class="text-center pb-4">Apiary Details</h2>
+      <div class="row">
+        <div class="col-6">
+         <div class="card">
+          <div class="card-header bg-warning shadow">
+            <h3>Name: {{ data['apiary'].name }}</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><strong>Created on:</strong> {{ data['apiary'].created_at }}</p>
+            <p class="card-text"><strong>Last updated:</strong> {{ data['apiary'].updated_at }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ data['apiary'].latitude }}, {{ data['apiary'].longitude }}</p>
+            <p class="card-text"><strong>Beehives:</strong> {{ data['hive_count'] }}</p>
+	    <p class="card-text"><strong>Description:</strong>{{ data['apiary'].description }} </p>
+          </div>
+          <a href="{{ url_for('views.delete_apiary', apiary_id=data['apiary'].id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this apiary?');">Delete Apiary</a>
+          <div class="card-footer text-muted">
+	  </div>
+	 </div>
+	</div><!-- end col 1-->
+	<div class="col">
+	  <div class="card-header shadow" style="background-color:#87CEEB">
+	    <h3>Weather in {{ data['location'] }}</h3>
+	  </div>
+	  <div class="card-body" style="background-color:lightgrey">
+            <p class="card-text"><strong>Today:</strong> {{ data['weather'] }}</p>
+	    <div>
+              <!-- image -->
+              <img src="{{ data['icon_url'] }}" />
+            </div>
+
+	  </div>
+	</div><!--end col 2 -->
       </div>
-      <div class="card-body">
-        <p class="card-text"><strong>Created on:</strong> {{ apiary.created_at }}</p>
-        <p class="card-text"><strong>Last updated:</strong> {{ apiary.updated_at }}</p>
-        <p class="card-text"><strong>Location:</strong> {{ apiary.latitude }}, {{ apiary.longitude }}</p>
-        <p class="card-text"><strong>Beehives:</strong> {{ hives_count }}</p>
-	<p class="card-text"><strong>Description:</strong>{{ apiary.description }} </p>
-	<p class="card-text"><strong> Weather Today:</strong> {{ (weather_data['weather'][0]['description']).capitalize() }}</p>
-      </div>
-        <a href="{{ url_for('views.delete_apiary', apiary_id=apiary.id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this apiary?');">Delete Apiary</a>
-      <div class="card-footer text-muted">
-      </div>
-    </div>
   </div>
 {% endblock %}
